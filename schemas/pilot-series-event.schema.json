@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://codeagent-configlab/schemas/pilot-series-event/v0",
+  "title": "CodeAgent ConfigLab pilot-series event (G10)",
+  "description": "One line of the append-only series event log. Cell states are derived from these events only.",
+  "type": "object",
+  "required": ["event"],
+  "properties": {
+    "event": { "enum": ["attempt_started", "attempt_finished", "attempt_aborted",
+                        "replacement_approved", "reevaluated", "series_halted",
+                        "cleanup_remediated", "series_resumed"] },
+    "attempt_id": { "type": "string" },
+    "cell_id": { "type": "string" },
+    "kind": { "enum": ["original", "replacement"] },
+    "ordinal": { "type": "integer" }
+  }
+}

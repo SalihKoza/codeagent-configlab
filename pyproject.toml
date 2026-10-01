@@ -1,0 +1,15 @@
+[project]
+name = "codeagent-configlab"
+version = "0.0.1"
+description = "Minimal benchmark harness skeleton for CodeAgent ConfigLab (V0)."
+requires-python = ">=3.11"
+# Intentionally dependency-free: the harness uses only the Python standard library so it
+# runs as `cclab` in WSL without any pip install (the agent has no network during runs).
+dependencies = []
+
+[project.optional-dependencies]
+# `pytest` is the only test-time convenience; the tests also run under `python -m unittest`.
+test = ["pytest"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

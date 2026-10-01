@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://codeagent-configlab/schemas/pilot-series-spec/v0",
+  "title": "CodeAgent ConfigLab pilot-series specification (G10)",
+  "description": "Frozen inputs of one pilot series. Operator/harness metadata only: stored under the harness root, never in an agent-visible path. Contains no secrets. See docs/PILOT_SERIES_V0.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "namespace", "pilot_version", "configurations", "repetitions",
+               "order_seed_text", "model_request", "effort_request", "timeout_seconds", "treatment",
+               "envelope", "toolchain", "replacement_policy", "tasks", "spec_hash"],
+  "properties": {
+    "schema": { "const": "pilot-series-spec/v0" },
+    "namespace": { "const": "PILOT" },
+    "pilot_version": { "type": "string" },
+    "configurations": { "type": "array", "items": { "enum": ["C0", "C1", "C2"] } },
+    "repetitions": { "type": "integer" },
+    "order_seed_text": { "type": "string" },
+    "model_request": { "type": "string" },
+    "effort_request": { "type": "string" },
+    "timeout_seconds": { "oneOf": [ { "const": "OPEN" }, { "type": "number" } ] },
+    "treatment": { "type": "object" },
+    "envelope": { "type": "object" },
+    "toolchain": { "type": "object" },
+    "replacement_policy": {
+      "type": "object",
+      "required": ["max_replacements_per_cell", "operator_approval_required"],
+      "properties": {
+        "max_replacements_per_cell": { "type": "integer" },
+        "operator_approval_required": { "const": true }
+      }
+    },
+    "tasks": { "type": "array", "items": { "type": "object",
+      "required": ["task_id", "task_version_hash", "gate_status", "statement_hash",
+                   "evaluator_identity"] } },
+    "spec_hash": { "type": "string" }
+  }
+}

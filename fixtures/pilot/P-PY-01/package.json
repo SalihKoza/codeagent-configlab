@@ -1,0 +1,35 @@
+{
+  "task_id": "P-PY-01",
+  "language": "python",
+  "task_category": "bugfix",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {"name": "public-acceptance",
+       "argv": ["python3", "-m", "unittest",
+                "tests.test_core_public.CollapseRangesAcceptanceTests", "-v"],
+       "timeout_seconds": 30},
+      {"name": "hidden-acceptance",
+       "argv": ["python3", "-m", "unittest", "_hidden_tests.test_core_hidden", "-v"],
+       "timeout_seconds": 30}
+    ],
+    "regression": [
+      {"name": "public-regression",
+       "argv": ["python3", "-m", "unittest",
+                "tests.test_core_public.CollapseRangesRegressionTests", "-v"],
+       "timeout_seconds": 30}
+    ],
+    "protected_paths": ["tests/test_core_public.py"],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "6c418fef82c228b08a736f809c085f07c636d93341070bfff07225e28a03fa9d",
+    "evidence_ref": "/home/cclab/cclab-pilot-gate/results/gate/P-PY-01/20260929T152633Z.json"
+  }
+}

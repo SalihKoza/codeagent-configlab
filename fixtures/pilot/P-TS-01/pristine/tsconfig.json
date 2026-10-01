@@ -1,0 +1,17 @@
+{
+  // NOTE: the "_hidden_tests" entry below is coupled to package.json's evaluator.hidden_dest --
+  // keep them in sync, or injected hidden tests will silently stop compiling.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "rootDir": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": false,
+    "sourceMap": false,
+    "newLine": "lf"
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts", "_hidden_tests/**/*.ts"]
+}

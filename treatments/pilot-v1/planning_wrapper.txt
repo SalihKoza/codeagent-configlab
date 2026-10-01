@@ -1,0 +1,12 @@
+Before making any changes, plan the following task.
+
+Task:
+
+{{TASK_STATEMENT}}
+
+For this step:
+- Inspect the repository as needed to understand the relevant code, conventions and tests. You may read files and run commands that do not change anything.
+- Do not create, modify or delete any files, and do not change the git state.
+- Do not implement anything yet.
+
+End your response with a concrete implementation plan: the changes you intend to make, where you intend to make them, and how you will verify them. After you present the plan, you will be asked to carry it out in this same session.

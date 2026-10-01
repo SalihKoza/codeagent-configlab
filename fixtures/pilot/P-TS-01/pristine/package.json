@@ -1,0 +1,13 @@
+{
+  "name": "contact-export",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Pilot fixture P-TS-01 (PILOT ONLY, not eligible for the final dataset). This is the npm manifest, distinct from the task descriptor package.json at the task root.",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test dist/test/*.test.js"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

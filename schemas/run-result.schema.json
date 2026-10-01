@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://codeagent-configlab/schemas/run-result/v0",
+  "title": "CodeAgent ConfigLab run result (V0)",
+  "description": "Observed output of ONE run. Kept logically separate from the immutable manifest so runtime results never mutate the specification. Artifact references are relative logical paths, never absolute. No token/cost/usage metric is part of this required schema (protocol §7 / O8): if the CLI emits usage fields they are stored elsewhere until their meaning is frozen. Contains no secret values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "result_schema_version", "run_id", "started_at", "ended_at", "duration_seconds",
+    "agent_exit_code", "phase1_exit_code", "phase2_exit_code", "observed_session_id",
+    "session_continuity_verified", "agent_outcome", "run_validity", "invalid_reason",
+    "interruption_reason", "limit_interrupted", "auth_failure", "harness_failure",
+    "acceptance", "regression", "integrity", "c2_protocol", "evaluator_error",
+    "artifacts", "cleanup"
+  ],
+  "properties": {
+    "result_schema_version": { "const": "run-result/v0" },
+    "run_id": { "type": "string" },
+    "started_at": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+    "ended_at": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+    "duration_seconds": { "oneOf": [ { "type": "null" }, { "type": "number" } ] },
+    "agent_exit_code": { "oneOf": [ { "type": "null" }, { "type": "integer" } ] },
+    "phase1_exit_code": { "oneOf": [ { "type": "null" }, { "type": "integer" } ] },
+    "phase2_exit_code": { "oneOf": [ { "type": "null" }, { "type": "integer" } ] },
+    "observed_session_id": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+    "session_continuity_verified": { "type": "boolean" },
+    "agent_outcome": {
+      "enum": ["completed", "error_exit", "timeout", "limit_interrupted", "auth_failure", "harness_error"]
+    },
+    "run_validity": {
+      "enum": ["valid", "invalid:infrastructure", "invalid:harness", "invalid:fixture",
+               "invalid:leak", "invalid:carryover", "invalid:c2_protocol", "invalid:treatment_drift",
+               "preflight_failed"]
+    },
+    "invalid_reason": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+    "interruption_reason": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+    "limit_interrupted": { "type": "boolean" },
+    "auth_failure": { "type": "boolean" },
+    "harness_failure": { "type": "boolean" },
+    "acceptance": { "enum": ["pass", "fail", "error", "not_run"] },
+    "regression": { "enum": ["pass", "fail", "error", "not_run"] },
+    "integrity": { "enum": ["clean", "protected_path_modified", "out_of_tree_write_detected"] },
+    "c2_protocol": { "enum": ["ok", "phase1_write", "phase_transition_failed", "not_applicable"] },
+    "evaluator_error": { "type": "boolean" },
+    "analysis_eligibility": {
+      "description": "G3 (additive within v0; absent only in pre-G3 records): whether this attempt counts as the planned observation for its cell. Derived from run_validity + agent_outcome by status.derive_analysis_eligibility, never set independently. not_countable never means deleted.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason"],
+      "properties": {
+        "status": { "enum": ["countable", "not_countable:external_interruption", "not_countable:invalid", "not_countable:evaluation_pending"] },
+        "reason": { "type": "string" }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stdout", "stderr", "events", "final_diff", "changed_files", "evaluator"],
+      "properties": {
+        "stdout": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+        "stderr": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+        "events": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+        "final_diff": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+        "changed_files": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+        "evaluator": { "oneOf": [ { "type": "null" }, { "type": "string" } ] },
+        "artifact_report": { "oneOf": [ { "type": "null" }, { "type": "string" } ] }
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["performed", "report_ref"],
+      "properties": {
+        "performed": { "type": "boolean" },
+        "report_ref": { "oneOf": [ { "type": "null" }, { "type": "string" } ] }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+# Python build/test artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Harness runtime state (created under a runs/results root at execution time)
+/runs/
+/results/
+
+# Local secrets / private operator state (root-anchored: must never hide benchmark fixtures)
+/token.txt
+/.env
+/.env.*
+/.venv/
+/venv/
+/.claude/
+/CLAUDE.local.md
+
+# Python packaging/build outputs at the repo root
+/build/
+/dist/
+/*.egg-info/
+/src/*.egg-info/
+
+# Stale local setup bundle (older snapshot of setup/, not referenced anywhere)
+/cclab-setup*.zip
+
+# Editor / OS noise
+/.vscode/
+/.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

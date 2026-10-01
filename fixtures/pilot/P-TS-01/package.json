@@ -1,0 +1,39 @@
+{
+  "task_id": "P-TS-01",
+  "language": "typescript",
+  "task_category": "refactor",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {"name": "build",
+       "argv": ["node", "node_modules/typescript/bin/tsc", "-p", "tsconfig.json"],
+       "timeout_seconds": 120},
+      {"name": "hidden-normalize-behavior",
+       "argv": ["node", "--test", "dist/_hidden_tests/normalize.hidden.test.js"],
+       "timeout_seconds": 60}
+    ],
+    "structural": [
+      {"name": "structural-consolidation",
+       "argv": ["node", "_hidden_tests/structural_check.cjs"],
+       "timeout_seconds": 30}
+    ],
+    "regression": [
+      {"name": "regression-exporters",
+       "argv": ["node", "--test",
+                "dist/test/csv.test.js", "dist/test/json.test.js", "dist/test/markdown.test.js"],
+       "timeout_seconds": 60}
+    ],
+    "protected_paths": ["test", "package.json", "tsconfig.json"],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": ["dist/**", "*.tsbuildinfo"],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "6547866f089cab87051a74c8298553e4e451dd360ba24d7c5d5f82fbc3a16957",
+    "evidence_ref": "/home/cclab/cclab-pilot-gate/results/gate/P-TS-01/20260929T154717Z.json"
+  }
+}
