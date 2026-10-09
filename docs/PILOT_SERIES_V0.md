@@ -63,8 +63,8 @@ verdict quality:
   - a frozen CLAUDE.md, wrapper and approval message;
   - every package gate `PASS` for exactly its current bytes;
   - evaluator identity;
-  - one repetition.
-- **Schedule:** exactly PILOT_PLAN §6.
+  - a positive repetition count, and exactly one for a `PILOT` series.
+- **Schedule (`PILOT` namespace):** exactly PILOT_PLAN §6.
   1. `seed = int(sha256(order_seed_text)[:8], 16)`;
   2. `first = rng.choice(tasks)`; tasks alternate from there;
   3. each task's configuration order is a `rng.shuffle` of `[C0, C1, C2]`, reshuffled until it
@@ -73,6 +73,28 @@ verdict quality:
 
   Interpretation: each shuffle starts from the canonical list. The schedule is generated at
   freeze, is independent of outcomes, and is regenerated and compared on every resume.
+
+  §6 defines only a one-repetition order, so a `PILOT` spec with more repetitions is refused.
+
+## Repetitions and the FINAL schedule (Gate 2)
+
+A `FINAL` series uses the same spec shape. `pilot_version` is the series identifier, and no
+namespace-specific key is added, so pilot specs and schedules hash exactly as before. Rules:
+
+- `repetitions` is any positive integer. Each repetition is a separate planned cell
+  (`cell_id` includes `repetition`), never a replacement.
+- Task ids starting with `P-` are refused (F16).
+- **Schedule (`FINAL` namespace):** protocol §11, blocked by repetition and non-adaptive.
+  1. The canonical list is `[(task_id, cfg) for task_id in sorted(task_ids) for cfg in C0, C1, C2]`.
+  2. For block `r = 1..R` (block `r` = repetition `r`):
+     `block_seed_r = int(sha256(order_seed_text + "#block-" + str(r))[:8], 16)`, and the block
+     order is `random.Random(block_seed_r).shuffle` of a copy of the canonical list.
+  3. Blocks run in order 1 → R. Positions are global (1..18R for six tasks).
+  4. The schedule records `order_rule` and `block_seeds` in place of the pilot's single `seed`.
+
+  The optional "no same task consecutively" constraint (protocol O16) is **not** applied. Adopting
+  it would be a new, explicit spec option. The per-block derived seed was an operator decision at
+  Gate 2.
 
 ## Manifest is the executable truth
 
@@ -109,7 +131,8 @@ verdict quality:
 - Manifests carry `namespace`: `PILOT`, `HARNESS_SMOKE_ONLY` or `FINAL`.
   - `load_pilot_attempt` refuses anything without `namespace=PILOT` and a `cell_id` (e.g. smoke).
   - `assert_promotable_to_final` refuses every pilot attempt.
-  - The driver refuses a non-PILOT spec.
+  - The driver builds `PILOT` and `FINAL` specs only; anything else (e.g. `HARNESS_SMOKE_ONLY`)
+    is refused.
 
 ## Task packages
 

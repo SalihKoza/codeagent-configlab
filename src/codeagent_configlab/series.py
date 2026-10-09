@@ -44,7 +44,9 @@ from .treatment import Treatment
 NAMESPACE_PILOT = "PILOT"
 NAMESPACE_SMOKE = "HARNESS_SMOKE_ONLY"
 NAMESPACE_FINAL = "FINAL"
+SERIES_NAMESPACES = (NAMESPACE_PILOT, NAMESPACE_FINAL)
 CONFIGURATIONS = ("C0", "C1", "C2")
+FINAL_ORDER_RULE = "EXPERIMENT_PROTOCOL_V0 §11 blocked-by-repetition; per-block derived seed"
 DEFAULT_ORDER_SEED_TEXT = "configlab-pilot-v1-order"   # PILOT_PLAN §6
 SPEC_SCHEMA = "pilot-series-spec/v0"
 SCHEDULE_SCHEMA = "pilot-series-schedule/v0"
@@ -132,12 +134,21 @@ def _is_number(v) -> bool:
 
 
 def build_spec(config: SeriesConfig) -> dict:
-    """The frozen series specification. Everything a replacement must keep identical is here."""
-    if config.namespace != NAMESPACE_PILOT:
-        raise SeriesError("the series driver only runs the PILOT namespace")
+    """The frozen series specification. Everything a replacement must keep identical is here.
+
+    ``PILOT`` and ``FINAL`` share one spec shape (no namespace-specific keys, so the frozen pilot
+    serialization is unchanged); ``pilot_version`` is the series identifier for both.
+    """
+    if config.namespace not in SERIES_NAMESPACES:
+        raise SeriesError(f"the series driver runs only the {'/'.join(SERIES_NAMESPACES)} namespaces")
+    reps = config.repetitions
+    if not isinstance(reps, int) or isinstance(reps, bool) or reps < 1:
+        raise SeriesError(f"repetitions must be a positive integer, got {reps!r}")
     t = config.treatment()
     tasks = []
     for pkg in sorted(config.packages(), key=lambda p: p.task_id):
+        if config.namespace == NAMESPACE_FINAL and pkg.task_id.startswith("P-"):
+            raise SeriesError(f"pilot task {pkg.task_id} can never be part of a FINAL series (F16)")
         gate = pkg.meta.get("validity_gate") or {}
         tasks.append({"task_id": pkg.task_id, "task_version_hash": pkg.version_hash(),
                       "gate_status": gate.get("status"),
@@ -196,8 +207,11 @@ def readiness_errors(spec: dict) -> list[str]:
             errors.append(f"{t['task_id']}: package differs from its gate-passed version")
         if not t["evaluator_identity"]:
             errors.append(f"{t['task_id']}: evaluator identity missing")
-    if spec.get("repetitions") != 1:
-        errors.append("pilot-v1 has exactly one repetition (the final order is not generated here)")
+    reps = spec.get("repetitions")
+    if not isinstance(reps, int) or isinstance(reps, bool) or reps < 1:
+        errors.append(f"repetitions must be a positive integer ({reps!r})")
+    elif spec["namespace"] == NAMESPACE_PILOT and reps != 1:
+        errors.append("a PILOT series has exactly one repetition (PILOT_PLAN §6 defines no other order)")
     return errors
 
 
@@ -209,6 +223,48 @@ def cell_id_for(spec: dict, task: dict, configuration: str, repetition: int) -> 
 
 
 def generate_schedule(spec: dict) -> dict:
+    """The frozen, outcome-independent run order: PILOT_PLAN §6 for ``PILOT``, protocol §11 for
+    ``FINAL``. The pilot path is unchanged, so frozen pilot schedules reproduce byte-for-byte."""
+    if spec["namespace"] == NAMESPACE_FINAL:
+        return _final_schedule(spec)
+    return _pilot_schedule(spec)
+
+
+def final_block_seed(order_seed_text: str, block: int) -> int:
+    """Per-block derived seed of the FINAL order (operator decision, Gate 2)."""
+    return int(hashlib.sha256(f"{order_seed_text}#block-{block}".encode()).hexdigest()[:8], 16)
+
+
+def _final_schedule(spec: dict) -> dict:
+    """EXPERIMENT_PROTOCOL_V0 §11: blocked by repetition, seeded, non-adaptive.
+
+    Block ``r`` (= repetition ``r``, run in order 1..R) holds every ``task x configuration`` pair
+    exactly once, in the order ``random.Random(final_block_seed(seed_text, r)).shuffle`` gives the
+    canonical list ``[(task_id, cfg) for task_id in sorted(task_ids) for cfg in C0, C1, C2]``.
+    Positions are global (1..pairs*R). The optional "no same task consecutively" constraint (O16)
+    is not applied.
+    """
+    tasks = {t["task_id"]: t for t in spec["tasks"]}
+    canonical = [(tid, cfg) for tid in sorted(tasks) for cfg in spec["configurations"]]
+    cells, block_seeds, pos = [], [], 0
+    for rep in range(1, spec["repetitions"] + 1):
+        block_seed = final_block_seed(spec["order_seed_text"], rep)
+        block_seeds.append(block_seed)
+        perm = list(canonical)
+        random.Random(block_seed).shuffle(perm)
+        for tid, cfg in perm:
+            pos += 1
+            cells.append({"position": pos, "cell_id": cell_id_for(spec, tasks[tid], cfg, rep),
+                          "task_id": tid, "task_version_hash": tasks[tid]["task_version_hash"],
+                          "configuration": cfg, "repetition": rep})
+    sched = {"schema": SCHEDULE_SCHEMA, "pilot_version": spec["pilot_version"],
+             "spec_hash": spec["spec_hash"], "order_seed_text": spec["order_seed_text"],
+             "order_rule": FINAL_ORDER_RULE, "block_seeds": block_seeds, "cells": cells}
+    sched["schedule_hash"] = canonical_json_hash(sched)
+    return sched
+
+
+def _pilot_schedule(spec: dict) -> dict:
     """PILOT_PLAN §6, verbatim: seeded, outcome-independent, task-alternating.
 
     ``seed = int(sha256(seed_text).hexdigest()[:8], 16)``; ``first = rng.choice(tasks)``; tasks
@@ -217,7 +273,7 @@ def generate_schedule(spec: dict) -> dict:
     positions ``t1·c1, t2·c1, t1·c2, t2·c2, t1·c3, t2·c3``.
     """
     if spec["repetitions"] != 1:
-        raise SeriesError("only the one-repetition pilot order is defined here")
+        raise SeriesError("PILOT_PLAN §6 defines only the one-repetition pilot order")
     seed = int(hashlib.sha256(spec["order_seed_text"].encode()).hexdigest()[:8], 16)
     rng = random.Random(seed)
     tasks = {t["task_id"]: t for t in spec["tasks"]}
@@ -511,7 +567,7 @@ class Series:
                 "readiness_errors": readiness_errors(spec),
                 "cells": [{"position": v.cell["position"], "cell_id": cid,
                            "task_id": v.cell["task_id"], "configuration": v.cell["configuration"],
-                           "state": v.state, "decision": v.decision,
+                           "repetition": v.cell["repetition"], "state": v.state, "decision": v.decision,
                            "attempts": [a["started"]["attempt_id"] for a in v.attempts]}
                           for cid, v in views.items()]}
 

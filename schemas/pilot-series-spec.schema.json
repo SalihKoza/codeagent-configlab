@@ -10,7 +10,7 @@
                "envelope", "toolchain", "replacement_policy", "tasks", "spec_hash"],
   "properties": {
     "schema": { "const": "pilot-series-spec/v0" },
-    "namespace": { "const": "PILOT" },
+    "namespace": { "enum": ["PILOT", "FINAL"] },
     "pilot_version": { "type": "string" },
     "configurations": { "type": "array", "items": { "enum": ["C0", "C1", "C2"] } },
     "repetitions": { "type": "integer" },

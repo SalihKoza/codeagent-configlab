@@ -638,8 +638,22 @@ class Namespaces(Base):
         m = load_pilot_attempt(s.attempts_root / r["executed"])
         with self.assertRaises(SeriesError):
             assert_promotable_to_final(m)                             # AC
-        with self.assertRaises(SeriesError):
+
+    def test_namespaces_final_supported_pilot_ids_firewalled_pilot_unchanged(self):
+        # FINAL itself is a supported namespace (Gate 2) for non-pilot task ids.
+        final_pkg = make_package(self.tmp / "final", "F-SYN-A")
+        spec = build_spec(self.config(namespace="FINAL", package_dirs=[str(final_pkg)]))
+        self.assertEqual(spec["namespace"], "FINAL")
+        # ...but pilot-style P-* task ids can never enter a FINAL series (F16 firewall).
+        with self.assertRaisesRegex(SeriesError, r"pilot task P-SYN-A .*FINAL.*F16"):
             build_spec(self.config(namespace="FINAL"))
+        # Namespaces other than PILOT/FINAL stay unsupported.
+        with self.assertRaisesRegex(SeriesError, "namespaces"):
+            build_spec(self.config(namespace="HARNESS_SMOKE_ONLY"))
+        # PILOT is unchanged: one repetition, ready with concrete values.
+        spec = build_spec(self.config())
+        self.assertEqual((spec["namespace"], spec["repetitions"]), ("PILOT", 1))
+        self.assertEqual(readiness_errors(spec), [])
 
     def test_ad_ae_workspace_is_opaque(self):
         s = self.series()
