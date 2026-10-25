@@ -1,0 +1,21 @@
+{
+  "pilot_version": "study01-v1",
+  "namespace": "FINAL",
+  "package_dirs": [
+    "../../fixtures/final/F-PY-BUG-01",
+    "../../fixtures/final/F-PY-FEAT-01",
+    "../../fixtures/final/F-PY-REF-01",
+    "../../fixtures/final/F-TS-BUG-01",
+    "../../fixtures/final/F-TS-FEAT-01",
+    "../../fixtures/final/F-TS-REF-01"
+  ],
+  "model_request": "claude-sonnet-5",
+  "effort_request": "high",
+  "timeout_seconds": 900,
+  "claude_md_file": "../../treatments/pilot-v1/claude_md.md",
+  "planning_wrapper_file": "../../treatments/pilot-v1/planning_wrapper.txt",
+  "approval_message_file": "../../treatments/pilot-v1/approval_message.txt",
+  "order_seed_text": "configlab-study01-v1-order",
+  "repetitions": 3,
+  "max_replacements_per_cell": 1
+}

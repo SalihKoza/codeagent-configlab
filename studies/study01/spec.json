@@ -1,0 +1,126 @@
+{
+  "configurations": [
+    "C0",
+    "C1",
+    "C2"
+  ],
+  "effort_request": "high",
+  "envelope": {
+    "implementation_envelope_hash": "911ea1a5c9708349d9bc9022d1d5435c3fad0e124c5958f90d2feea08d859743",
+    "planning_envelope_hash": "3dc389cb14170a85722d81230b0999e46b0e26f3a42771ea4f3b61f7875a6e6f",
+    "security_policy_hash": "6178b3c4c5bfaef24547bbffcf698bee9e0c545dfb0f6c58805ffeb8f4d3ff30"
+  },
+  "model_request": "claude-sonnet-5",
+  "namespace": "FINAL",
+  "order_seed_text": "configlab-study01-v1-order",
+  "pilot_version": "study01-v1",
+  "repetitions": 3,
+  "replacement_policy": {
+    "eligible_external_interruption": true,
+    "eligible_run_validity": [
+      "invalid:infrastructure",
+      "invalid:harness",
+      "preflight_failed"
+    ],
+    "halt_run_validity": [
+      "invalid:leak",
+      "invalid:carryover"
+    ],
+    "max_replacements_per_cell": 1,
+    "operator_approval_required": true,
+    "operator_confirm_run_validity": [
+      "invalid:fixture"
+    ]
+  },
+  "schema": "pilot-series-spec/v0",
+  "spec_hash": "84d61cb647fb226555c8b24a5b1334cccfdb485bd6dd7901127493b34bcf7674",
+  "tasks": [
+    {
+      "evaluator_identity": "0b39f016ee2238cc3aa9f3fd4b940ae769bdee21c5ffffab2b93c9cf8e71f1fb",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "fdff9031aac4f023eb9ac40e4d32c57cef510f80798ac60baeded7956657652b",
+      "task_category": "bugfix",
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "evaluator_identity": "0fd724ef6339b60d4a0274a529f69128dcf1be443d7ade578c9a51afcf6de386",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "bc4a3abec944055c7787e4b3012daf44813350541cd8dc46b38562af84735def",
+      "task_category": "feature",
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "evaluator_identity": "bea3716db9f8c6f66b7bf078b6ee272886e4d7752cd14b6f3b3e88ac1edd8557",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "859e6705415961b5e1711ed52e93bcbb61ec153d07e0bdcc5af7c3da7d2f6269",
+      "task_category": "refactor",
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "evaluator_identity": "d04566c439bd662b863ea341682c40545ecf3dee45f5fd4857fe5bddf6ad469a",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "4bcad3637bdf89c2f19a2e7445b8f89bb89684b83b4afefa4542b9d5866d9794",
+      "task_category": "bugfix",
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "evaluator_identity": "32d218ae949fd221809ba3e4a308be8e0e4b563bba7d14763d1b310c3213afea",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "a768c2296fb1b409ffd718e6a30e741fd13d2aa6ac340ec433a130d5600108fc",
+      "task_category": "feature",
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "evaluator_identity": "039c9ad68a24240c0b52de6fdad994a1a79f911e7a3df7d4f0adbf161f395357",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "0d8a925f2d58ebe2a4c20c532cee4afc7f6b6bb336305325efb9720967cda6d8",
+      "task_category": "refactor",
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    }
+  ],
+  "timeout_seconds": 900,
+  "toolchain": {
+    "claude_code": "2.1.263",
+    "node": "22.23.2",
+    "npm": "10.9.8",
+    "sandbox_runtime": "0.0.77"
+  },
+  "treatment": {
+    "approval_message_hash": "dbf445a514ca2ae9576935d09d7add9cf9157f88ca01ae1388d65a1f1009ee14",
+    "claude_md_hash": "213df66805a816a4dea6998580fd85c91c3d3a1beb08acb3dbdf7ddc000e0541",
+    "planning_wrapper_hash": "299b08446b440345a7f177258208c3bf8b1d33addc3934ed1356bb72a0c47fc4"
+  }
+}

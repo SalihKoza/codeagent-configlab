@@ -1,0 +1,447 @@
+{
+  "block_seeds": [
+    1572469222,
+    545946680,
+    2800734291
+  ],
+  "cells": [
+    {
+      "cell_id": "cell-e91e9b9e09c3de44",
+      "configuration": "C2",
+      "position": 1,
+      "repetition": 1,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-547b89914fae6072",
+      "configuration": "C1",
+      "position": 2,
+      "repetition": 1,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-b41e8ca2ffcdd2e0",
+      "configuration": "C0",
+      "position": 3,
+      "repetition": 1,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-75f45c6889fdae58",
+      "configuration": "C1",
+      "position": 4,
+      "repetition": 1,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-e9f571d488e6790d",
+      "configuration": "C2",
+      "position": 5,
+      "repetition": 1,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-cf3a9817a8c0774f",
+      "configuration": "C0",
+      "position": 6,
+      "repetition": 1,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-8056a52101429327",
+      "configuration": "C0",
+      "position": 7,
+      "repetition": 1,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-a30f4342f9956c74",
+      "configuration": "C1",
+      "position": 8,
+      "repetition": 1,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-d6668f5f73b69934",
+      "configuration": "C2",
+      "position": 9,
+      "repetition": 1,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-5f3cadf037f2ee03",
+      "configuration": "C2",
+      "position": 10,
+      "repetition": 1,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-28e85c33d1e1f77d",
+      "configuration": "C0",
+      "position": 11,
+      "repetition": 1,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-a24c203b2b97b330",
+      "configuration": "C0",
+      "position": 12,
+      "repetition": 1,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-3213fe3ec46130e7",
+      "configuration": "C1",
+      "position": 13,
+      "repetition": 1,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-1783a53b7e3c5eaa",
+      "configuration": "C0",
+      "position": 14,
+      "repetition": 1,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    },
+    {
+      "cell_id": "cell-dca54b90ca931342",
+      "configuration": "C1",
+      "position": 15,
+      "repetition": 1,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-d7d1a624c365e5a5",
+      "configuration": "C2",
+      "position": 16,
+      "repetition": 1,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-2a713d9dfa52d097",
+      "configuration": "C1",
+      "position": 17,
+      "repetition": 1,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    },
+    {
+      "cell_id": "cell-8f8192374caded78",
+      "configuration": "C2",
+      "position": 18,
+      "repetition": 1,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    },
+    {
+      "cell_id": "cell-26362e93dae9c6f4",
+      "configuration": "C2",
+      "position": 19,
+      "repetition": 2,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-92e675cba94afa2e",
+      "configuration": "C1",
+      "position": 20,
+      "repetition": 2,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-e0207f67577c77bd",
+      "configuration": "C0",
+      "position": 21,
+      "repetition": 2,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-214038c51b352b38",
+      "configuration": "C0",
+      "position": 22,
+      "repetition": 2,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-ece39de96f518760",
+      "configuration": "C1",
+      "position": 23,
+      "repetition": 2,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    },
+    {
+      "cell_id": "cell-15a986f4688352d7",
+      "configuration": "C2",
+      "position": 24,
+      "repetition": 2,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-9b3ee390413133b8",
+      "configuration": "C0",
+      "position": 25,
+      "repetition": 2,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    },
+    {
+      "cell_id": "cell-51566476b032abf2",
+      "configuration": "C0",
+      "position": 26,
+      "repetition": 2,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-dc87924d90d86120",
+      "configuration": "C0",
+      "position": 27,
+      "repetition": 2,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-b40c33c48482711a",
+      "configuration": "C1",
+      "position": 28,
+      "repetition": 2,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-f5a025db11eab4e1",
+      "configuration": "C1",
+      "position": 29,
+      "repetition": 2,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-0d9f543e94668a08",
+      "configuration": "C2",
+      "position": 30,
+      "repetition": 2,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    },
+    {
+      "cell_id": "cell-a16e64876f53d967",
+      "configuration": "C2",
+      "position": 31,
+      "repetition": 2,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-d83da7962b4f751f",
+      "configuration": "C1",
+      "position": 32,
+      "repetition": 2,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-c90e124dc2063a2a",
+      "configuration": "C2",
+      "position": 33,
+      "repetition": 2,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-dc35033cb5a6cea9",
+      "configuration": "C2",
+      "position": 34,
+      "repetition": 2,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-478fac5e243fe98b",
+      "configuration": "C1",
+      "position": 35,
+      "repetition": 2,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-d97edde024a0a9e8",
+      "configuration": "C0",
+      "position": 36,
+      "repetition": 2,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-3da7103ea53c2e47",
+      "configuration": "C0",
+      "position": 37,
+      "repetition": 3,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-86360dad9d022721",
+      "configuration": "C2",
+      "position": 38,
+      "repetition": 3,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-f124fd6ab48aa232",
+      "configuration": "C2",
+      "position": 39,
+      "repetition": 3,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-4997e7e8ae2a360a",
+      "configuration": "C1",
+      "position": 40,
+      "repetition": 3,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-c0bb0e011365d99e",
+      "configuration": "C1",
+      "position": 41,
+      "repetition": 3,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-353443b6fc7a3e1c",
+      "configuration": "C0",
+      "position": 42,
+      "repetition": 3,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    },
+    {
+      "cell_id": "cell-0aef2b8de6930b55",
+      "configuration": "C0",
+      "position": 43,
+      "repetition": 3,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-54a47051b6395be7",
+      "configuration": "C1",
+      "position": 44,
+      "repetition": 3,
+      "task_id": "F-TS-FEAT-01",
+      "task_version_hash": "ada5d35aea5470491054424a2c8becdde46a14fb406bfd7bd1d99b8a8ede90fb"
+    },
+    {
+      "cell_id": "cell-36fb9e5bc71cacb0",
+      "configuration": "C0",
+      "position": 45,
+      "repetition": 3,
+      "task_id": "F-PY-REF-01",
+      "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484"
+    },
+    {
+      "cell_id": "cell-2a6f20a61f831eed",
+      "configuration": "C0",
+      "position": 46,
+      "repetition": 3,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-30a3d8bffa16b57f",
+      "configuration": "C0",
+      "position": 47,
+      "repetition": 3,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-564425d35bb810b9",
+      "configuration": "C2",
+      "position": 48,
+      "repetition": 3,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-ca0be79284071812",
+      "configuration": "C1",
+      "position": 49,
+      "repetition": 3,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-aa1fbd4bfc1b57a9",
+      "configuration": "C2",
+      "position": 50,
+      "repetition": 3,
+      "task_id": "F-PY-BUG-01",
+      "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939"
+    },
+    {
+      "cell_id": "cell-a57dc80bc424d7a1",
+      "configuration": "C2",
+      "position": 51,
+      "repetition": 3,
+      "task_id": "F-TS-BUG-01",
+      "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df"
+    },
+    {
+      "cell_id": "cell-47c76ea5faef988c",
+      "configuration": "C2",
+      "position": 52,
+      "repetition": 3,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    },
+    {
+      "cell_id": "cell-b8f94320a290ed58",
+      "configuration": "C1",
+      "position": 53,
+      "repetition": 3,
+      "task_id": "F-PY-FEAT-01",
+      "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4"
+    },
+    {
+      "cell_id": "cell-1d825c32caf3ba89",
+      "configuration": "C1",
+      "position": 54,
+      "repetition": 3,
+      "task_id": "F-TS-REF-01",
+      "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee"
+    }
+  ],
+  "order_rule": "EXPERIMENT_PROTOCOL_V0 \u00a711 blocked-by-repetition; per-block derived seed",
+  "order_seed_text": "configlab-study01-v1-order",
+  "pilot_version": "study01-v1",
+  "schedule_hash": "51700202b74950a88813b494530b9efdbdcaced2d0524e0186752f7db1241664",
+  "schema": "pilot-series-schedule/v0",
+  "spec_hash": "84d61cb647fb226555c8b24a5b1334cccfdb485bd6dd7901127493b34bcf7674"
+}
