@@ -1,0 +1,38 @@
+{
+  "task_id": "F-PY-REF-01",
+  "language": "python",
+  "task_category": "refactor",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {"name": "hidden-behavior",
+       "argv": ["python3", "-m", "unittest", "_hidden_tests.test_loader_behavior", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]}
+    ],
+    "structural": [
+      {"name": "structure-check",
+       "argv": ["python3", "_hidden_tests/structure_check.py"],
+       "timeout_seconds": 30, "error_codes": [2, 3]}
+    ],
+    "regression": [
+      {"name": "public-regression",
+       "argv": ["python3", "-m", "unittest", "tests.test_loader", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]},
+      {"name": "hidden-regression",
+       "argv": ["python3", "-m", "unittest", "_hidden_tests.test_loader_regression", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]}
+    ],
+    "protected_paths": ["tests/test_loader.py"],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "4a8c4a6199b33dcc94a13117a12d2dc1e0f7eff1f2481a66abfc7b3b2d698484",
+    "evidence_ref": "/home/cclab/cclab-final-gate/results/gate/F-PY-REF-01/20261013T182555Z.json"
+  }
+}

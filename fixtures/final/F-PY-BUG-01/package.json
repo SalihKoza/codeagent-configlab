@@ -1,0 +1,33 @@
+{
+  "task_id": "F-PY-BUG-01",
+  "language": "python",
+  "task_category": "bugfix",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {"name": "hidden-acceptance",
+       "argv": ["python3", "-m", "unittest", "_hidden_tests.test_headers_acceptance", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]}
+    ],
+    "regression": [
+      {"name": "public-regression",
+       "argv": ["python3", "-m", "unittest", "tests.test_headers", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]},
+      {"name": "hidden-regression",
+       "argv": ["python3", "-m", "unittest", "_hidden_tests.test_headers_regression", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]}
+    ],
+    "protected_paths": ["tests/test_headers.py"],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "a918f37f7837555cc177c9d5b02449c32e44519970f91c587e49d76875e1b939",
+    "evidence_ref": "/home/cclab/cclab-final-gate/results/gate/F-PY-BUG-01/20261013T171817Z.json"
+  }
+}

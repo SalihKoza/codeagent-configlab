@@ -1,0 +1,41 @@
+{
+  "task_id": "F-TS-REF-01",
+  "language": "typescript",
+  "task_category": "refactor",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {"name": "build",
+       "argv": ["node", "node_modules/typescript/bin/tsc", "-p", "_hidden_tests/tsconfig.json"],
+       "timeout_seconds": 120},
+      {"name": "hidden-behavior",
+       "argv": ["node", "--test", "dist/_hidden_tests/ledger.behavior.test.js"],
+       "timeout_seconds": 60}
+    ],
+    "structural": [
+      {"name": "structure-check",
+       "argv": ["node", "_hidden_tests/structure_check.cjs"],
+       "timeout_seconds": 60, "error_codes": [3]}
+    ],
+    "regression": [
+      {"name": "public-regression",
+       "argv": ["node", "--test", "dist/test/ledger.test.js"],
+       "timeout_seconds": 60},
+      {"name": "hidden-regression",
+       "argv": ["node", "--test", "dist/_hidden_tests/ledger.regression.test.js"],
+       "timeout_seconds": 60}
+    ],
+    "protected_paths": ["test", "package.json", "package-lock.json", "tsconfig.json", "node_modules"],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": ["dist/**", "*.tsbuildinfo"],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "a116478aa259d9bbb20c62631e9ad0a76a543d2b4c95e096c35f37925ff730ee",
+    "evidence_ref": "/home/cclab/cclab-final-gate/results/gate/F-TS-REF-01/20261023T171829Z.json"
+  }
+}

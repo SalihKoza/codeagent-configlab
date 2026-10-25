@@ -1,0 +1,33 @@
+{
+  "task_id": "F-PY-FEAT-01",
+  "language": "python",
+  "task_category": "feature",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {"name": "hidden-acceptance",
+       "argv": ["python3", "-m", "unittest", "_hidden_tests.test_store_acceptance", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]}
+    ],
+    "regression": [
+      {"name": "public-regression",
+       "argv": ["python3", "-m", "unittest", "tests.test_store", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]},
+      {"name": "hidden-regression",
+       "argv": ["python3", "-m", "unittest", "_hidden_tests.test_store_regression", "-v"],
+       "timeout_seconds": 30, "error_codes": [5]}
+    ],
+    "protected_paths": ["tests/test_store.py"],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "143e845b90c467ba607bc4b1afde4c1203319e35e8e17aaba173884bec61bda4",
+    "evidence_ref": "/home/cclab/cclab-final-gate/results/gate/F-PY-FEAT-01/20261013T175813Z.json"
+  }
+}

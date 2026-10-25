@@ -1,0 +1,36 @@
+{
+  "task_id": "F-TS-BUG-01",
+  "language": "typescript",
+  "task_category": "bugfix",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {"name": "build",
+       "argv": ["node", "node_modules/typescript/bin/tsc", "-p", "_hidden_tests/tsconfig.json"],
+       "timeout_seconds": 120},
+      {"name": "hidden-acceptance",
+       "argv": ["node", "--test", "dist/_hidden_tests/order.acceptance.test.js"],
+       "timeout_seconds": 60}
+    ],
+    "regression": [
+      {"name": "public-regression",
+       "argv": ["node", "--test", "dist/test/order.test.js"],
+       "timeout_seconds": 60},
+      {"name": "hidden-regression",
+       "argv": ["node", "--test", "dist/_hidden_tests/order.regression.test.js"],
+       "timeout_seconds": 60}
+    ],
+    "protected_paths": ["test", "package.json", "package-lock.json", "tsconfig.json", "node_modules"],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": ["dist/**", "*.tsbuildinfo"],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "58954b7dde81d5ac43a15bd2af320fc0a90677ac54e201804b4d69bc257913df",
+    "evidence_ref": "/home/cclab/cclab-final-gate/results/gate/F-TS-BUG-01/20261023T154247Z.json"
+  }
+}

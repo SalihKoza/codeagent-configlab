@@ -1,0 +1,12 @@
+{
+  "name": "command-registry",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node node_modules/typescript/bin/tsc -p tsconfig.json",
+    "test": "node --test dist/test/*.test.js"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}
