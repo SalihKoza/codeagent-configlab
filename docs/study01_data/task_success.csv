@@ -1,0 +1,7 @@
+task_id,C0_resolved_of_3,C1_resolved_of_3,C2_resolved_of_3,C1_minus_C0,C2_minus_C1,C2_minus_C0
+F-PY-BUG-01,3,3,3,0,0,0
+F-PY-FEAT-01,3,2,2,-1,0,-1
+F-PY-REF-01,3,3,3,0,0,0
+F-TS-BUG-01,3,3,2,0,-1,-1
+F-TS-FEAT-01,3,3,1,0,-2,-2
+F-TS-REF-01,1,2,1,1,-1,0

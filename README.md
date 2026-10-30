@@ -6,8 +6,8 @@ real task fixtures inside a controlled, deterministic, auditable series driver �
 simulation.
 
 **V1 scope.** V1 consists of the working evaluation harness plus the completed production pilot.
-The final six-task / 54-run comparative benchmark is a separate next milestone and has not yet
-been run.
+The final six-task / 54-run comparative benchmark (Study-01) has since been run and analyzed; see
+[Study-01 Results](#study-01-results) below and `docs/study01/STUDY_01_RESULTS.md` for the full report.
 
 ## What's being compared: C0 / C1 / C2
 
@@ -42,11 +42,39 @@ subsequent real attempts.
 C2 effectiveness** — two tasks, one repetition each, is not a statistically meaningful result, and
 none is claimed. See `docs/PILOT_V1_CLOSEOUT.md` for the full closeout record.
 
+## Study-01 Results
+
+Study-01 ran six fixed coding tasks three times each under C0/C1/C2 and compared them with
+matched, task-aware statistics. Full report: `docs/study01/STUDY_01_RESULTS.md`. Machine-readable
+results: `docs/STUDY_01_RESULTS.json`. Public data tables: `docs/study01_data/`. Protocol:
+`docs/STUDY_01_PROTOCOL.md`. Of the 54 planned cells, one original attempt was infrastructure-
+invalid (an auth failure, not a task outcome) and was re-run once under the frozen replacement
+policy — the study remains 54 planned cells, not 55.
+
+| Comparison | Matched success change (frozen primary result) | Timing |
+|---|---|---|
+| RQ1: C1 vs. C0 | 16/18 → 16/18 resolved, 0.0 pp | C1 slower in 16/18 matched pairs; all 6 task-level medians slower |
+| RQ2: C2 vs. C1 | 16/18 → 12/18 resolved, −22.2 pp | C2 slower in 18/18 matched pairs; 3 of 6 task-level successes worsened, none improved |
+
+A verified post-hoc check found that most of the RQ2 gap traces to one component of the
+composite success definition — an integrity (protected-path) check that was applied consistently
+but was not disclosed to the candidate — rather than to functional (acceptance/regression)
+failure; functional-pass rates were far closer across configurations (C0 16/18, C1 17/18, C2
+16/18). The frozen result above is unchanged; see `docs/study01/STUDY_01_RESULTS.md` §8a for the full,
+separately labeled sensitivity analysis.
+
+**Scope:** the benchmark contains 54 cell observations but only six distinct task units; three
+repetitions per task/configuration characterize within-task run variability, not 18 independent
+samples. Tasks are synthetic, one per language × task-type combination, run under a single frozen
+model/harness/environment. No significance testing was performed or is implied by these numbers.
+Future studies can test task-set robustness and criterion-visibility fixes on new tasks.
+
 ## Where things stand
 
-The **final benchmark** — a separate, larger task set intended to produce a 54-run dataset with a
-comparative report across C0/C1/C2 — is a distinct next milestone and has not yet been authored.
-The two pilot tasks are instruments only and are not part of that final set.
+The **final benchmark** (Study-01) — a separate, larger task set producing a 54-cell dataset with
+a comparative report across C0/C1/C2 — has been run and analyzed; see
+[Study-01 Results](#study-01-results) above. The two pilot tasks were instruments only and are not
+part of that final set.
 
 - `docs/V1_STATUS.md` — what the harness currently provides, and what it doesn't yet contain.
 - `docs/PILOT_V1_CLOSEOUT.md` — the pilot's scope, frozen execution identities, full execution

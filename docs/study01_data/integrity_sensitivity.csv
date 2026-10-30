@@ -1,0 +1,4 @@
+configuration,N,functional_pass,functional_fail,integrity_clean,integrity_nonclean,resolved_frozen
+C0,18,16,2,18,0,16
+C1,18,17,1,17,1,16
+C2,18,16,2,14,4,12

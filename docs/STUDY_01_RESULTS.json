@@ -1,0 +1,160 @@
+{
+  "study_id": "study01-v1",
+  "provenance": {
+    "frozen_repo_head": "03eb4b4b986dcc68cd923cd71b427b0e6d240869",
+    "study_snapshot_hash": "3ad54204775e12f55e14c149b2e9bc6e8e9d6194529e47e97f5fc2ae44f32d01",
+    "protocol": "docs/STUDY_01_PROTOCOL.md",
+    "public_data_tables": "docs/study01_data/",
+    "note": "Full per-attempt operational data (raw transcripts, sandbox/process logs) is retained privately per protocol; aggregate reproducibility tables are published under docs/study01_data/.",
+    "requested_model": "claude-sonnet-5"
+  },
+  "dataset": {
+    "planned_cells": 54,
+    "total_attempts": 55,
+    "original_attempts": 54,
+    "replacement_attempts": 1,
+    "replacement_cell_id": "cell-e91e9b9e09c3de44",
+    "replacement_task_id": "F-PY-BUG-01",
+    "replacement_configuration": "C2",
+    "replacement_repetition": 1,
+    "cells_per_configuration": {"C0": 18, "C1": 18, "C2": 18},
+    "n_tasks": 6,
+    "repetitions_per_task_config": 3
+  },
+  "marginal_success": {
+    "C0": {"resolved": 16, "total": 18, "rate_pct": 88.9},
+    "C1": {"resolved": 16, "total": 18, "rate_pct": 88.9},
+    "C2": {"resolved": 12, "total": 18, "rate_pct": 66.7}
+  },
+  "overall_outcome_accounting": {
+    "resolved": 44,
+    "unresolved": 10,
+    "acceptance_fail": 5,
+    "regression_fail": 0,
+    "integrity_non_clean": 5,
+    "evaluator_error": 0
+  },
+  "RQ1_C1_minus_C0": {
+    "matched_pairs": 18,
+    "transition_table": {
+      "both_resolved": 15,
+      "treatment_only_resolved": 1,
+      "comparator_only_resolved": 1,
+      "both_unresolved": 1
+    },
+    "cell_level_pp_difference": 0.0,
+    "task_level": {
+      "improved": 1, "tied": 4, "worsened": 1,
+      "median_difference": 0, "mean_difference": 0
+    },
+    "timing": {
+      "n_matched_pairs_treatment_slower": 16,
+      "n_matched_pairs_total": 18,
+      "all_6_task_level_medians_slower": true,
+      "median_paired_diff_seconds": 10.37,
+      "median_ratio_treatment_over_comparator": 1.334
+    }
+  },
+  "RQ2_C2_minus_C1": {
+    "matched_pairs": 18,
+    "transition_table": {
+      "both_resolved": 11,
+      "treatment_only_resolved": 1,
+      "comparator_only_resolved": 5,
+      "both_unresolved": 1
+    },
+    "cell_level_pp_difference": -22.2,
+    "task_level": {
+      "improved": 0, "tied": 3, "worsened": 3,
+      "median_difference": -0.5, "mean_difference": -0.667
+    },
+    "timing": {
+      "n_matched_pairs_treatment_slower": 18,
+      "n_matched_pairs_total": 18,
+      "all_6_task_level_medians_slower": true,
+      "median_paired_diff_seconds": 35.45,
+      "median_ratio_treatment_over_comparator": 1.527
+    },
+    "see_also": "post_hoc_integrity_sensitivity (this file) for a verified descriptive breakdown of how much of this gap is integrity-driven vs functional"
+  },
+  "secondary_C2_minus_C0": {
+    "matched_pairs": 18,
+    "transition_table": {
+      "both_resolved": 12,
+      "treatment_only_resolved": 0,
+      "comparator_only_resolved": 4,
+      "both_unresolved": 2
+    },
+    "cell_level_pp_difference": -22.2,
+    "task_level": {
+      "improved": 0, "tied": 3, "worsened": 3,
+      "median_difference": -0.5, "mean_difference": -0.667
+    },
+    "timing": {
+      "n_matched_pairs_treatment_slower": 17,
+      "n_matched_pairs_total": 18,
+      "all_6_task_level_medians_slower": true,
+      "median_paired_diff_seconds": 35.98,
+      "median_ratio_treatment_over_comparator": 2.020
+    },
+    "note": "descriptive combined-treatment contrast only, not a third research question"
+  },
+  "timing_by_configuration_all_countable_observations": {
+    "C0": {"n": 18, "min": 12.43, "median": 34.50, "mean": 47.46, "max": 140.83},
+    "C1": {"n": 18, "min": 12.68, "median": 46.75, "mean": 55.60, "max": 153.25},
+    "C2": {"n": 18, "min": 25.01, "median": 76.65, "mean": 89.63, "max": 216.18}
+  },
+  "failure_axes": {
+    "integrity_non_clean_by_configuration": {"C0": 0, "C1": 1, "C2": 4},
+    "acceptance_failures_by_configuration": {"C0": 2, "C1": 1, "C2": 2},
+    "acceptance_failures_concentrated_in_task": "F-TS-REF-01",
+    "acceptance_failures_in_F_TS_REF_01": 5
+  },
+  "post_hoc_integrity_sensitivity": {
+    "status": "descriptive_supplement_not_preregistered_does_not_replace_primary_result",
+    "finding_summary": "All 5 integrity failures passed acceptance and regression; the protected-path restriction they violated was not disclosed to candidates in any task-visible document; the same evaluator rule was applied consistently across C0/C1/C2 with no evaluator defect found.",
+    "functional_pass_definition": "valid AND acceptance==pass AND regression==pass, integrity reported separately rather than used as an exclusion criterion",
+    "by_configuration": {
+      "C0": {"n": 18, "functional_pass": 16, "functional_fail": 2, "integrity_clean": 18, "integrity_nonclean": 0, "resolved_frozen": 16},
+      "C1": {"n": 18, "functional_pass": 17, "functional_fail": 1, "integrity_clean": 17, "integrity_nonclean": 1, "resolved_frozen": 16},
+      "C2": {"n": 18, "functional_pass": 16, "functional_fail": 2, "integrity_clean": 14, "integrity_nonclean": 4, "resolved_frozen": 12}
+    },
+    "contrasts": {
+      "C1_minus_C0": {"functional_pass_diff_cells": 1, "resolved_frozen_diff_cells": 0, "resolved_frozen_diff_pp": 0.0},
+      "C2_minus_C1": {"functional_pass_diff_cells": -1, "resolved_frozen_diff_cells": -4, "resolved_frozen_diff_pp": -22.2},
+      "C2_minus_C0": {"functional_pass_diff_cells": 0, "resolved_frozen_diff_cells": -4, "resolved_frozen_diff_pp": -22.2}
+    },
+    "interpretation_note": "Three of the four cells accounting for the frozen C2-C1 resolved gap are attributable to the undisclosed protected-path criterion rather than acceptance/regression failure. The frozen primary result is retained unchanged; this section is a transparency supplement only.",
+    "full_review": "docs/study01_data/integrity_sensitivity.csv"
+  },
+  "refactor_task_observations": {
+    "F-PY-REF-01": {"n": 9, "resolved": 9},
+    "F-TS-REF-01": {
+      "n": 9, "resolved": 4, "unresolved": 5,
+      "structural_all_pass": true,
+      "regression_all_pass": true,
+      "integrity_all_clean": true,
+      "repetition_1_all_resolved": true,
+      "post_hoc_note": "All 5 unresolved cells independently traced to one shared implementation pattern (plain-object prototype-chain hazard), not a configuration effect; exploratory finding, not preregistered."
+    }
+  },
+  "task_level_success_counts_of_3": {
+    "F-PY-BUG-01": {"C0": 3, "C1": 3, "C2": 3},
+    "F-PY-FEAT-01": {"C0": 3, "C1": 2, "C2": 2},
+    "F-PY-REF-01": {"C0": 3, "C1": 3, "C2": 3},
+    "F-TS-BUG-01": {"C0": 3, "C1": 3, "C2": 2},
+    "F-TS-FEAT-01": {"C0": 3, "C1": 3, "C2": 1},
+    "F-TS-REF-01": {"C0": 1, "C1": 2, "C2": 1}
+  },
+  "limitations": {
+    "n_task_units": 6,
+    "repetitions_characterize": "within-task run variability, not independent samples",
+    "synthetic_tasks": true,
+    "one_task_per_language_x_task_type_cell": true,
+    "single_model_version_environment": true,
+    "no_inferential_testing_performed": true,
+    "generalization_claim_supported": false,
+    "integrity_criterion_disclosure_gap": true
+  },
+  "inference_scope": "descriptive_task_aware"
+}

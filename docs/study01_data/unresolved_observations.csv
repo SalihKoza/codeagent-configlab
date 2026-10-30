@@ -1,0 +1,11 @@
+position,task_id,configuration,repetition,acceptance,regression,integrity,structural_result,reason
+5,F-TS-FEAT-01,C2,1,pass,pass,protected_path_modified,,integrity failure
+23,F-TS-REF-01,C1,2,fail,pass,clean,pass,acceptance failure
+25,F-TS-REF-01,C0,2,fail,pass,clean,pass,acceptance failure
+29,F-PY-FEAT-01,C1,2,pass,pass,protected_path_modified,,integrity failure
+30,F-TS-REF-01,C2,2,fail,pass,clean,pass,acceptance failure
+31,F-TS-BUG-01,C2,2,pass,pass,protected_path_modified,,integrity failure
+39,F-TS-FEAT-01,C2,3,pass,pass,protected_path_modified,,integrity failure
+42,F-TS-REF-01,C0,3,fail,pass,clean,pass,acceptance failure
+48,F-PY-FEAT-01,C2,3,pass,pass,protected_path_modified,,integrity failure
+52,F-TS-REF-01,C2,3,fail,pass,clean,pass,acceptance failure
