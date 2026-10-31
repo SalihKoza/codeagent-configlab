@@ -1,0 +1,68 @@
+{
+  "task_id": "S2-PY-FEAT-02",
+  "language": "python",
+  "task_category": "feature",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {
+        "name": "hidden-acceptance",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "_hidden_tests.test_list_strategy_acceptance",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      }
+    ],
+    "regression": [
+      {
+        "name": "public-regression-resolve",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "tests.test_resolve",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      },
+      {
+        "name": "public-regression-layers",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "tests.test_layers",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      }
+    ],
+    "protected_paths": [
+      "tests"
+    ],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "afd8da158c5e7e895c25a8b2c3a5be4fdf3cc732f1ee940fb27cd43221cb070d",
+    "evidence_ref": "gate5-implementation-validation"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "task_id": "S2-PY-BUG-01",
+  "language": "python",
+  "task_category": "bugfix",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {
+        "name": "hidden-acceptance",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "_hidden_tests.test_boundary_acceptance",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      }
+    ],
+    "regression": [
+      {
+        "name": "public-regression-buckets",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "tests.test_buckets",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      },
+      {
+        "name": "public-regression-api",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "tests.test_api",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      }
+    ],
+    "protected_paths": [
+      "tests"
+    ],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "15baef1e9eb3c5ef52fb4dc110736bf238e836631b788b36a54281cebb44c6d6",
+    "evidence_ref": "gate5-implementation-validation"
+  }
+}

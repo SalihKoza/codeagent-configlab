@@ -1,0 +1,81 @@
+{
+  "task_id": "S2-PY-REF-02",
+  "language": "python",
+  "task_category": "refactor",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {
+        "name": "hidden-behavior",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "_hidden_tests.test_boundary_and_isolation",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      }
+    ],
+    "structural": [
+      {
+        "name": "structure-check",
+        "argv": [
+          "python3",
+          "_hidden_tests/structure_check.py"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          3
+        ]
+      }
+    ],
+    "regression": [
+      {
+        "name": "public-regression-buckets",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "tests.test_buckets",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      },
+      {
+        "name": "public-regression-api",
+        "argv": [
+          "python3",
+          "-m",
+          "unittest",
+          "tests.test_api",
+          "-v"
+        ],
+        "timeout_seconds": 30,
+        "error_codes": [
+          5
+        ]
+      }
+    ],
+    "protected_paths": [
+      "tests"
+    ],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "bcab4ddfe4c4f35a139deeda040cf79f4936e85083846a183dbef9a885fd3bb8",
+    "evidence_ref": "gate5-implementation-validation"
+  }
+}

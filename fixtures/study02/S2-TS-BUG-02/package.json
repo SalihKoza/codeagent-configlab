@@ -1,0 +1,70 @@
+{
+  "task_id": "S2-TS-BUG-02",
+  "language": "typescript",
+  "task_category": "bugfix",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {
+        "name": "build",
+        "argv": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "_hidden_tests/tsconfig.json"
+        ],
+        "timeout_seconds": 120
+      },
+      {
+        "name": "ordering-behavior",
+        "argv": [
+          "node",
+          "--test",
+          "dist/_hidden_tests/ordering.behavior.test.js"
+        ],
+        "timeout_seconds": 60
+      }
+    ],
+    "regression": [
+      {
+        "name": "public-regression-parse",
+        "argv": [
+          "node",
+          "--test",
+          "dist/test/parse.test.js"
+        ],
+        "timeout_seconds": 60
+      },
+      {
+        "name": "public-regression-roundtrip",
+        "argv": [
+          "node",
+          "--test",
+          "dist/test/roundtrip.test.js"
+        ],
+        "timeout_seconds": 60
+      }
+    ],
+    "protected_paths": [
+      "test",
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json",
+      "node_modules"
+    ],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [
+    "dist/**",
+    "*.tsbuildinfo"
+  ],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "687444e98f23bd448706562f889bfbf7855b7867f7fb68b04230a0e060bf09b0",
+    "evidence_ref": "gate5-implementation-validation"
+  }
+}

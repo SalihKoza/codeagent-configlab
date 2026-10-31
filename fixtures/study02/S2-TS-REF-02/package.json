@@ -1,0 +1,83 @@
+{
+  "task_id": "S2-TS-REF-02",
+  "language": "typescript",
+  "task_category": "refactor",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {
+        "name": "build",
+        "argv": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "_hidden_tests/tsconfig.json"
+        ],
+        "timeout_seconds": 120
+      },
+      {
+        "name": "boundary-behavior",
+        "argv": [
+          "node",
+          "--test",
+          "dist/_hidden_tests/boundary.behavior.test.js"
+        ],
+        "timeout_seconds": 60
+      }
+    ],
+    "structural": [
+      {
+        "name": "structure-check",
+        "argv": [
+          "node",
+          "_hidden_tests/structure_check.cjs"
+        ],
+        "timeout_seconds": 60,
+        "error_codes": [
+          3
+        ]
+      }
+    ],
+    "regression": [
+      {
+        "name": "public-regression-store",
+        "argv": [
+          "node",
+          "--test",
+          "dist/test/store.test.js"
+        ],
+        "timeout_seconds": 60
+      },
+      {
+        "name": "public-regression-index",
+        "argv": [
+          "node",
+          "--test",
+          "dist/test/index.test.js"
+        ],
+        "timeout_seconds": 60
+      }
+    ],
+    "protected_paths": [
+      "test",
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json",
+      "node_modules"
+    ],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [
+    "dist/**",
+    "*.tsbuildinfo"
+  ],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "dfd38e8822407c065b89512ef464f3e65dbd898ae56d43744bde5b2bc0ff8655",
+    "evidence_ref": "gate5-implementation-validation"
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "task_id": "S2-TS-REF-01",
+  "language": "typescript",
+  "task_category": "refactor",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {
+        "name": "build",
+        "argv": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "_hidden_tests/tsconfig.json"
+        ],
+        "timeout_seconds": 120
+      },
+      {
+        "name": "tiebreak-behavior",
+        "argv": [
+          "node",
+          "--test",
+          "dist/_hidden_tests/tiebreak.behavior.test.js"
+        ],
+        "timeout_seconds": 60
+      }
+    ],
+    "structural": [
+      {
+        "name": "structure-check",
+        "argv": [
+          "node",
+          "_hidden_tests/structure_check.cjs"
+        ],
+        "timeout_seconds": 60,
+        "error_codes": [
+          3
+        ]
+      }
+    ],
+    "regression": [
+      {
+        "name": "public-regression-ordering",
+        "argv": [
+          "node",
+          "--test",
+          "dist/test/ordering.test.js"
+        ],
+        "timeout_seconds": 60
+      },
+      {
+        "name": "public-regression-retries",
+        "argv": [
+          "node",
+          "--test",
+          "dist/test/retries.test.js"
+        ],
+        "timeout_seconds": 60
+      }
+    ],
+    "protected_paths": [
+      "test",
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json",
+      "node_modules"
+    ],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [
+    "dist/**",
+    "*.tsbuildinfo"
+  ],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "cb50fc71a6a6ffc34c4154167a17d0d93b4b559030896823a63deed607860f02",
+    "evidence_ref": "gate5-implementation-validation"
+  }
+}

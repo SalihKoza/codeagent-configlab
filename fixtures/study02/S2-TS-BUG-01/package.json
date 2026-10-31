@@ -1,0 +1,70 @@
+{
+  "task_id": "S2-TS-BUG-01",
+  "language": "typescript",
+  "task_category": "bugfix",
+  "statement": "statement.md",
+  "pristine": "pristine",
+  "hidden": "hidden",
+  "reference": "reference",
+  "evaluator": {
+    "acceptance": [
+      {
+        "name": "build",
+        "argv": [
+          "node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "_hidden_tests/tsconfig.json"
+        ],
+        "timeout_seconds": 120
+      },
+      {
+        "name": "boundary-behavior",
+        "argv": [
+          "node",
+          "--test",
+          "dist/_hidden_tests/boundary.behavior.test.js"
+        ],
+        "timeout_seconds": 60
+      }
+    ],
+    "regression": [
+      {
+        "name": "public-regression",
+        "argv": [
+          "node",
+          "--test",
+          "dist/test/store.test.js"
+        ],
+        "timeout_seconds": 60
+      },
+      {
+        "name": "public-regression-index",
+        "argv": [
+          "node",
+          "--test",
+          "dist/test/index.test.js"
+        ],
+        "timeout_seconds": 60
+      }
+    ],
+    "protected_paths": [
+      "test",
+      "package.json",
+      "package-lock.json",
+      "tsconfig.json",
+      "node_modules"
+    ],
+    "hidden_dest": "_hidden_tests",
+    "env": {}
+  },
+  "generated_outputs": [
+    "dist/**",
+    "*.tsbuildinfo"
+  ],
+  "validity_gate": {
+    "status": "PASS",
+    "task_version_hash": "efb3c9eb4edec601aa525e692c81c0eb21ac03fec9b4d9fbe043fbacfd8ed28a",
+    "evidence_ref": "gate5-implementation-validation"
+  }
+}
