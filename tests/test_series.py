@@ -22,7 +22,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from _helpers import FakeSandbox, TEST_APPROVAL, TEST_CLAUDE_MD, TEST_WRAPPER  # noqa: E402
 
 from codeagent_configlab.evaluator import EvaluationResult  # noqa: E402
+from codeagent_configlab.hashing import sha256_bytes  # noqa: E402
 from codeagent_configlab.lifecycle import AgentRunOutcome  # noqa: E402
+from codeagent_configlab.manifest import RunManifest  # noqa: E402
 from codeagent_configlab.series import (  # noqa: E402
     Series, SeriesConfig, SeriesError, SeriesFrozenError, SeriesNotReady, SeriesStateError,
     assert_promotable_to_final, build_spec, frozen_cell_spec_hash, generate_schedule,
@@ -1047,6 +1049,184 @@ class TwoArmConfigurations(Base):
         seen_configs = {json.loads((s.attempts_root / r["executed"] / "manifest.json")
                                    .read_text())["configuration"] for r in results}
         self.assertEqual(seen_configs, {"C1", "C2"})
+
+
+class ExplicitClaudeMdRouting(Base):
+    """Gate 7E: SeriesConfig.claude_md_map lets a series route a different CLAUDE.md per
+    task_id -- not just one series-wide file. Model-free, synthetic tasks only."""
+
+    def _routed_claude_mds(self):
+        tr = self.harness / "treatments"
+        a, b = tr / "family_a.md", tr / "family_b.md"
+        if not a.exists():
+            a.write_bytes(b"FAMILY A CLAUDE.md\n")
+            b.write_bytes(b"FAMILY B CLAUDE.md\n")
+        return a, b
+
+    def _routed_config(self, **over):
+        a, b = self._routed_claude_mds()
+        base = dict(claude_md_file=None, claude_md_map={"P-SYN-A": str(a), "P-SYN-B": str(b)})
+        base.update(over)
+        return self.config(**base)
+
+    def test_legacy_single_file_mode_unaffected_no_routing_key(self):
+        spec = build_spec(self.config())
+        self.assertEqual(set(spec["treatment"]),
+                         {"claude_md_hash", "planning_wrapper_hash", "approval_message_hash"})
+
+    def test_both_claude_md_file_and_claude_md_map_set_is_rejected(self):
+        tr = self.harness / "treatments"
+        cfg = self.config(claude_md_map={"P-SYN-A": str(tr / "CLAUDE.md"),
+                                         "P-SYN-B": str(tr / "CLAUDE.md")})
+        with self.assertRaises(SeriesError):
+            build_spec(cfg)
+
+    def test_empty_claude_md_map_dict_is_explicit_mode_not_legacy(self):
+        cfg = self.config(claude_md_file=None, claude_md_map={})
+        with self.assertRaisesRegex(SeriesError, "missing task_id"):
+            build_spec(cfg)
+
+    def test_valid_explicit_mapping_adds_claude_md_routing_sorted_by_task_id(self):
+        a, b = self._routed_claude_mds()
+        spec = build_spec(self._routed_config())
+        routing = spec["treatment"]["claude_md_routing"]
+        self.assertEqual([r["task_id"] for r in routing], ["P-SYN-A", "P-SYN-B"])
+        self.assertEqual(routing[0]["claude_md_hash"], sha256_bytes(a.read_bytes()))
+        self.assertEqual(routing[1]["claude_md_hash"], sha256_bytes(b.read_bytes()))
+
+    def test_two_tasks_sharing_one_family_file_get_same_hash_distinct_entries(self):
+        a, _ = self._routed_claude_mds()
+        cfg = self._routed_config(claude_md_map={"P-SYN-A": str(a), "P-SYN-B": str(a)})
+        routing = build_spec(cfg)["treatment"]["claude_md_routing"]
+        self.assertEqual(len(routing), 2)
+        self.assertEqual(routing[0]["claude_md_hash"], routing[1]["claude_md_hash"])
+
+    def test_missing_task_in_claude_md_map_rejected_at_build_spec(self):
+        a, _ = self._routed_claude_mds()
+        cfg = self._routed_config(claude_md_map={"P-SYN-A": str(a)})
+        with self.assertRaisesRegex(SeriesError, "P-SYN-B"):
+            build_spec(cfg)
+
+    def test_unknown_task_in_claude_md_map_rejected_at_build_spec(self):
+        a, b = self._routed_claude_mds()
+        cfg = self._routed_config(claude_md_map={"P-SYN-A": str(a), "P-SYN-B": str(b),
+                                                 "NOT-A-REAL-TASK": str(a)})
+        with self.assertRaisesRegex(SeriesError, "NOT-A-REAL-TASK"):
+            build_spec(cfg)
+
+    def test_claude_md_map_nonexistent_file_rejected_with_clean_series_error(self):
+        b = self._routed_claude_mds()[1]
+        cfg = self._routed_config(claude_md_map={"P-SYN-A": str(self.tmp / "nope.md"),
+                                                 "P-SYN-B": str(b)})
+        with self.assertRaises(SeriesError):
+            build_spec(cfg)
+
+    def test_routing_order_independent_of_dict_insertion_order(self):
+        a, b = self._routed_claude_mds()
+        cfg1 = self._routed_config(claude_md_map={"P-SYN-A": str(a), "P-SYN-B": str(b)})
+        cfg2 = self._routed_config(claude_md_map={"P-SYN-B": str(b), "P-SYN-A": str(a)})
+        self.assertEqual(build_spec(cfg1)["spec_hash"], build_spec(cfg2)["spec_hash"])
+
+    def test_readiness_errors_satisfied_by_routing_without_legacy_hash(self):
+        spec = build_spec(self._routed_config())
+        self.assertIsNone(spec["treatment"]["claude_md_hash"])
+        self.assertNotIn("C1/C2 CLAUDE.md is not frozen", readiness_errors(spec))
+
+    def test_explicit_mapping_freezes_and_verifies(self):
+        s = Series(root=self.harness / "series" / "routed", config=self._routed_config(),
+                   harness_root=self.harness, home=self.home)
+        result = s.freeze()
+        self.assertFalse(result["already_frozen"])
+        spec, _ = s.verify_frozen(require_ready=False)
+        self.assertEqual(len(spec["treatment"]["claude_md_routing"]), 2)
+        self.assertTrue(s.freeze()["already_frozen"])
+
+    def test_changed_assignment_swap_detected_at_verify(self):
+        a, b = self._routed_claude_mds()
+        root = self.harness / "series" / "routed-swap"
+        s = Series(root=root, config=self._routed_config(), harness_root=self.harness, home=self.home)
+        s.freeze()
+        swapped = Series(root=root, config=self._routed_config(
+            claude_md_map={"P-SYN-A": str(b), "P-SYN-B": str(a)}),
+            harness_root=self.harness, home=self.home)
+        with self.assertRaises(SeriesFrozenError):
+            swapped.verify_frozen(require_ready=False)
+
+    def test_changed_file_content_detected_at_verify(self):
+        a, _ = self._routed_claude_mds()
+        root = self.harness / "series" / "routed-mutate"
+        s = Series(root=root, config=self._routed_config(), harness_root=self.harness, home=self.home)
+        s.freeze()
+        a.write_bytes(b"MUTATED FAMILY A CONTENT\n")
+        with self.assertRaises(SeriesFrozenError):
+            s.verify_frozen(require_ready=False)
+
+    def test_build_manifest_resolves_correct_per_task_hash_for_c1_and_c2(self):
+        a, b = self._routed_claude_mds()
+        s = self.series(self._routed_config())
+        spec = build_spec(self._routed_config())
+        sched = generate_schedule(spec)
+        by_task = {c["task_id"]: c for c in sched["cells"]}
+        for tid, expected_file in (("P-SYN-A", a), ("P-SYN-B", b)):
+            for cfg in ("C0", "C1", "C2"):
+                cell = dict(by_task[tid])
+                cell["configuration"] = cfg
+                m = s.build_manifest(spec, sched, cell, kind="original", ordinal=1)
+                if cfg == "C0":
+                    self.assertIsNone(m.claude_md_hash)
+                else:
+                    self.assertEqual(m.claude_md_hash, sha256_bytes(expected_file.read_bytes()))
+
+    def test_execute_next_installs_correct_per_task_claude_md_bytes_into_working_copy(self):
+        a, b = self._routed_claude_mds()
+        s = self.series(self._routed_config())
+        s.freeze()
+        installed = {}
+        for _ in range(6):   # PILOT namespace: 2 tasks x 3 configs x 1 repetition
+            r = self.step(s)
+            m = load_pilot_attempt(s.attempts_root / r["executed"])
+            if m["configuration"] == "C0":
+                continue
+            wc = s.runs_root / m["workspace_token"]
+            installed[(m["task_id"], m["configuration"])] = (wc / "CLAUDE.md").read_bytes()
+        self.assertEqual(installed[("P-SYN-A", "C1")], a.read_bytes())
+        self.assertEqual(installed[("P-SYN-A", "C2")], a.read_bytes())
+        self.assertEqual(installed[("P-SYN-B", "C1")], b.read_bytes())
+        self.assertEqual(installed[("P-SYN-B", "C2")], b.read_bytes())
+        self.assertNotEqual(a.read_bytes(), b.read_bytes())
+
+    def test_replacement_inherits_original_assignment_via_frozen_cell_spec_hash(self):
+        self.plan[("P-SYN-A", "C1", 1)] = (AO.LIMIT_INTERRUPTED, False)
+        s = self.series(self._routed_config())
+        s.freeze()
+        while True:
+            r = self.step(s)
+            if r.get("done"):
+                break
+        cid = next(c["cell_id"] for c in s.status()["cells"] if c["state"] == "replacement_eligible")
+        first = s.cells()[cid].attempts[0]["started"]["attempt_id"]
+        s.approve_replacement(cid, "limit reset")
+        r = self.step(s)
+        m = json.loads((s.attempts_root / r["executed"] / "manifest.json").read_text())
+        orig = json.loads((s.attempts_root / first / "manifest.json").read_text())
+        self.assertEqual(m["claude_md_hash"], orig["claude_md_hash"])
+        self.assertEqual(frozen_cell_spec_hash(RunManifest.from_dict(orig)),
+                         frozen_cell_spec_hash(RunManifest.from_dict(m)))
+
+    def test_from_json_resolves_relative_claude_md_map_paths(self):
+        a, b = self._routed_claude_mds()
+        series_dir = self.harness / "json-config"
+        series_dir.mkdir()
+        data = dict(pilot_version="pilot-test", package_dirs=[str(p) for p in self.pkgs],
+                   model_request=MODEL, effort_request=EFFORT, timeout_seconds=600,
+                   claude_md_map={"P-SYN-A": "../treatments/family_a.md",
+                                 "P-SYN-B": "../treatments/family_b.md"},
+                   planning_wrapper_file="../treatments/wrapper.txt",
+                   approval_message_file="../treatments/approval.txt")
+        (series_dir / "series.json").write_text(json.dumps(data), encoding="utf-8")
+        cfg = SeriesConfig.from_json(series_dir / "series.json")
+        self.assertEqual(cfg.claude_md_map["P-SYN-A"], str(a.resolve()))
+        self.assertEqual(cfg.claude_md_map["P-SYN-B"], str(b.resolve()))
 
 
 if __name__ == "__main__":

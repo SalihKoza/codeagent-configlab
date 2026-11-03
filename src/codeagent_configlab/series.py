@@ -26,13 +26,13 @@ import hashlib
 import json
 import os
 import random
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Callable, Optional
 
 from .envelope import (IMPLEMENTATION_TOOLS, PLANNING_TOOLS, SecurityPolicy,
                        implementation_envelope, planning_envelope)
-from .hashing import canonical_json_hash
+from .hashing import canonical_json_hash, sha256_bytes
 from .ids import new_run_id, new_workspace_token
 from .manifest import (CLAUDE_CODE_VERSION, NODE_VERSION, NPM_VERSION, SANDBOX_RUNTIME_VERSION,
                        RunManifest)
@@ -96,6 +96,7 @@ class SeriesConfig:
     effort_request: str = OPEN
     timeout_seconds: object = OPEN
     claude_md_file: Optional[str] = None
+    claude_md_map: Optional[dict] = None
     planning_wrapper_file: Optional[str] = None
     approval_message_file: Optional[str] = None
     order_seed_text: str = DEFAULT_ORDER_SEED_TEXT
@@ -115,6 +116,8 @@ class SeriesConfig:
         data["package_dirs"] = [rel(p) for p in data["package_dirs"]]
         for k in ("claude_md_file", "planning_wrapper_file", "approval_message_file"):
             data[k] = rel(data.get(k))
+        if data.get("claude_md_map") is not None:
+            data["claude_md_map"] = {tid: rel(p) for tid, p in data["claude_md_map"].items()}
         return cls(**data)
 
     def packages(self) -> list[TaskPackage]:
@@ -128,6 +131,20 @@ class SeriesConfig:
         return Treatment(claude_md=read(self.claude_md_file, binary=True),
                          planning_wrapper=read(self.planning_wrapper_file),
                          approval_message=read(self.approval_message_file))
+
+    def treatment_for(self, task_id: str) -> Treatment:
+        """Per-task treatment: shared wrapper/approval unchanged; ``claude_md`` resolved from
+        ``claude_md_map`` when explicit per-task routing is in effect, else the legacy
+        series-wide ``claude_md_file``."""
+        base = self.treatment()
+        if self.claude_md_map is None:
+            return base
+        path = self.claude_md_map.get(task_id)
+        if path is None:
+            raise SeriesError(f"{task_id}: missing from claude_md_map")
+        if not Path(path).is_file():
+            raise SeriesError(f"{task_id}: claude_md_map file not found: {path}")
+        return replace(base, claude_md=Path(path).read_bytes())
 
 
 def _is_number(v) -> bool:
@@ -145,6 +162,9 @@ def build_spec(config: SeriesConfig) -> dict:
     reps = config.repetitions
     if not isinstance(reps, int) or isinstance(reps, bool) or reps < 1:
         raise SeriesError(f"repetitions must be a positive integer, got {reps!r}")
+    if config.claude_md_file is not None and config.claude_md_map is not None:
+        raise SeriesError("claude_md_file and claude_md_map are mutually exclusive "
+                          "(legacy series-wide vs explicit per-task routing)")
     t = config.treatment()
     tasks = []
     for pkg in sorted(config.packages(), key=lambda p: p.task_id):
@@ -158,6 +178,23 @@ def build_spec(config: SeriesConfig) -> dict:
                       "task_category": pkg.task_category,
                       "evaluator_identity": pkg.evaluator_identity(),
                       "generated_outputs": list(pkg.generated_outputs)})
+    routing = None
+    if config.claude_md_map is not None:
+        task_ids = {d["task_id"] for d in tasks}
+        missing = sorted(task_ids - set(config.claude_md_map))
+        if missing:
+            raise SeriesError(f"claude_md_map missing task_id(s): {missing}")
+        extra = sorted(set(config.claude_md_map) - task_ids)
+        if extra:
+            raise SeriesError(f"claude_md_map has unknown task_id(s): {extra}")
+        routing = []
+        for tid in sorted(config.claude_md_map):
+            p = config.claude_md_map[tid]
+            try:
+                data = Path(p).read_bytes()
+            except OSError as exc:
+                raise SeriesError(f"{tid}: cannot read claude_md_map file {p!r}: {exc}") from None
+            routing.append({"task_id": tid, "claude_md_hash": sha256_bytes(data)})
     spec = {
         "schema": SPEC_SCHEMA, "namespace": config.namespace, "pilot_version": config.pilot_version,
         "configurations": list(config.configurations), "repetitions": config.repetitions,
@@ -166,7 +203,8 @@ def build_spec(config: SeriesConfig) -> dict:
         "timeout_seconds": config.timeout_seconds,
         "treatment": {"claude_md_hash": t.claude_md_hash,
                       "planning_wrapper_hash": t.planning_wrapper_hash,
-                      "approval_message_hash": t.approval_message_hash},
+                      "approval_message_hash": t.approval_message_hash,
+                      **({"claude_md_routing": routing} if routing is not None else {})},
         "envelope": {"implementation_envelope_hash": implementation_envelope("C0").envelope_hash(),
                      "planning_envelope_hash": planning_envelope().envelope_hash(),
                      "security_policy_hash": SecurityPolicy().policy_hash()},
@@ -194,7 +232,7 @@ def readiness_errors(spec: dict) -> list[str]:
     if not _is_number(spec["timeout_seconds"]) or spec["timeout_seconds"] <= 0:
         errors.append(f"timeout_seconds is not frozen ({spec['timeout_seconds']!r})")
     tr = spec["treatment"]
-    if tr["claude_md_hash"] is None:
+    if tr["claude_md_hash"] is None and tr.get("claude_md_routing") is None:
         errors.append("C1/C2 CLAUDE.md is not frozen")
     if "C2" in spec["configurations"] and (tr["planning_wrapper_hash"] is None
                                            or tr["approval_message_hash"] is None):
@@ -214,6 +252,19 @@ def readiness_errors(spec: dict) -> list[str]:
     elif spec["namespace"] == NAMESPACE_PILOT and reps != 1:
         errors.append("a PILOT series has exactly one repetition (PILOT_PLAN §6 defines no other order)")
     return errors
+
+
+def claude_md_hash_for_task(spec: dict, task_id: str) -> Optional[str]:
+    """Frozen ``claude_md`` hash for one task: explicit per-task routing when present, else the
+    legacy series-wide hash."""
+    tr = spec["treatment"]
+    routing = tr.get("claude_md_routing")
+    if routing is None:
+        return tr["claude_md_hash"]
+    entry = next((r for r in routing if r["task_id"] == task_id), None)
+    if entry is None:   # unreachable: build_spec() already enforces full per-task coverage
+        raise SeriesError(f"{task_id}: missing from frozen claude_md_routing")
+    return entry["claude_md_hash"]
 
 
 def cell_id_for(spec: dict, task: dict, configuration: str, repetition: int) -> str:
@@ -618,7 +669,7 @@ class Series:
             task_statement_hash=task["statement_hash"],
             implementation_tool_set=IMPLEMENTATION_TOOLS,
             planning_tool_set=PLANNING_TOOLS if cfg == "C2" else None,
-            claude_md_hash=tr["claude_md_hash"] if cfg in ("C1", "C2") else None,
+            claude_md_hash=claude_md_hash_for_task(spec, task["task_id"]) if cfg in ("C1", "C2") else None,
             planning_wrapper_hash=tr["planning_wrapper_hash"] if cfg == "C2" else None,
             approval_message_hash=tr["approval_message_hash"] if cfg == "C2" else None,
             order_position=cell["position"], order_seed_ref=sched["schedule_hash"],
@@ -658,7 +709,7 @@ class Series:
         if kind == "replacement" and frozen != view.attempts[0]["started"]["frozen_cell_spec_hash"]:
             raise SeriesFrozenError("replacement would not use the original cell's frozen specification")
         pkg = next(p for p in self.config.packages() if p.task_id == cell["task_id"])
-        treatment = self.config.treatment()
+        treatment = self.config.treatment_for(cell["task_id"])
         cfg = cell["configuration"]
         treat = None if cfg == "C0" else (Treatment(claude_md=treatment.claude_md) if cfg == "C1"
                                           else treatment)
