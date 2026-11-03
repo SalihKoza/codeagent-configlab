@@ -989,5 +989,65 @@ class ResumeSemantics(Base):
         self.assertFalse(s.halted())
 
 
+class TwoArmConfigurations(Base):
+    """Study-02 compatibility (Gate 7C): SeriesConfig.configurations lets a FINAL series use any
+    subset of CONFIGURATIONS -- not just all three. Model-free, synthetic tasks only."""
+
+    def _final_two_arm_config(self, **over):
+        final_root = self.tmp / "final-two-arm"
+        pkgs = [make_package(final_root, "F-SYN-A"), make_package(final_root, "F-SYN-B")]
+        base = dict(namespace="FINAL", package_dirs=[str(p) for p in pkgs],
+                    configurations=("C1", "C2"), repetitions=2)
+        base.update(over)
+        return self.config(**base)
+
+    def test_build_spec_honors_explicit_two_arm_configurations(self):
+        spec = build_spec(self._final_two_arm_config())
+        self.assertEqual(spec["configurations"], ["C1", "C2"])
+
+    def test_default_series_config_still_produces_all_three_configurations(self):
+        # Regression safety: omitting the new field changes nothing for existing callers.
+        spec = build_spec(self.config())
+        self.assertEqual(spec["configurations"], ["C0", "C1", "C2"])
+
+    def test_two_arm_schedule_is_balanced_deterministic_and_c0_free(self):
+        spec = build_spec(self._final_two_arm_config())
+        sched_a, sched_b = generate_schedule(spec), generate_schedule(spec)
+        self.assertEqual(sched_a, sched_b)                              # deterministic
+        cells = sched_a["cells"]
+        self.assertEqual(len(cells), 8)                                 # 2 tasks x 2 cfgs x 2 reps
+        self.assertEqual(len({c["cell_id"] for c in cells}), 8)         # no duplicate cell_id
+        self.assertEqual({c["configuration"] for c in cells}, {"C1", "C2"})
+        self.assertNotIn("C0", {c["configuration"] for c in cells})
+        for rep in (1, 2):
+            pairs = {(c["task_id"], c["configuration"]) for c in cells if c["repetition"] == rep}
+            self.assertEqual(pairs, {(t, c) for t in ("F-SYN-A", "F-SYN-B") for c in ("C1", "C2")})
+        c1 = sum(1 for c in cells if c["configuration"] == "C1")
+        c2 = sum(1 for c in cells if c["configuration"] == "C2")
+        self.assertEqual((c1, c2), (4, 4))
+
+    def test_two_arm_series_freezes_and_verifies_without_c0(self):
+        s = Series(root=self.harness / "series" / "two-arm", config=self._final_two_arm_config(),
+                   harness_root=self.harness, home=self.home)
+        result = s.freeze()
+        self.assertFalse(result["already_frozen"])
+        spec, sched = s.verify_frozen(require_ready=False)
+        self.assertEqual(spec["configurations"], ["C1", "C2"])
+        self.assertEqual(len(sched["cells"]), 8)
+
+    def test_two_arm_series_executes_c1_and_c2_cells_via_fake_runner(self):
+        # Full dry-run production-path trace: schedule -> package load -> treatment resolution ->
+        # manifest -> fake agent/evaluator. No real model call, no srt.
+        s = Series(root=self.harness / "series" / "two-arm-exec", config=self._final_two_arm_config(),
+                   harness_root=self.harness, home=self.home)
+        s.freeze()
+        results = [self.step(s) for _ in range(8)]
+        self.assertTrue(all(r["executed"] for r in results))
+        self.assertIsNone(self.step(s)["executed"])                     # exactly 8 cells, no more
+        seen_configs = {json.loads((s.attempts_root / r["executed"] / "manifest.json")
+                                   .read_text())["configuration"] for r in results}
+        self.assertEqual(seen_configs, {"C1", "C2"})
+
+
 if __name__ == "__main__":
     unittest.main()

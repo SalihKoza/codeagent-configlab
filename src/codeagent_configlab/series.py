@@ -102,6 +102,7 @@ class SeriesConfig:
     repetitions: int = 1
     max_replacements_per_cell: int = 1
     namespace: str = NAMESPACE_PILOT
+    configurations: tuple = CONFIGURATIONS
 
     @classmethod
     def from_json(cls, path) -> "SeriesConfig":
@@ -159,7 +160,7 @@ def build_spec(config: SeriesConfig) -> dict:
                       "generated_outputs": list(pkg.generated_outputs)})
     spec = {
         "schema": SPEC_SCHEMA, "namespace": config.namespace, "pilot_version": config.pilot_version,
-        "configurations": list(CONFIGURATIONS), "repetitions": config.repetitions,
+        "configurations": list(config.configurations), "repetitions": config.repetitions,
         "order_seed_text": config.order_seed_text,
         "model_request": config.model_request, "effort_request": config.effort_request,
         "timeout_seconds": config.timeout_seconds,
