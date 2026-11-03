@@ -1,0 +1,834 @@
+{
+  "payload": {
+    "analysis": {
+      "agent_time_binding": {
+        "c1": "process.json -> elapsed_seconds",
+        "c2_phase1": "c2.json -> phases[label == 'phase1'].process.elapsed_seconds",
+        "c2_phase2": "c2.json -> phases[label == 'phase2'].process.elapsed_seconds; not started is reported as not started, never 0",
+        "c2_total": "phase1 + phase2 agent elapsed (phase 1 only if phase 2 did not start)",
+        "excluded": "c2.json.inter_phase_gap_seconds; evaluator, cleanup and lifecycle time; result.json.duration_seconds and c2.json.phases[].duration_seconds are not the performance metric",
+        "timeout": "result.json agent_outcome == 'timeout' with run_validity == 'valid' is valid, countable, unsuccessful unless another independent validity problem exists"
+      },
+      "excluded": [
+        "token/API-cost metrics",
+        "weighted/composite score (a.k.a. weighted quality score)",
+        "generic quality proxies"
+      ],
+      "exploratory_only": [
+        "language patterns",
+        "task-type patterns",
+        "repository-family patterns",
+        "repetition variability",
+        "resolved-only timing if later reported"
+      ],
+      "primary_endpoint": {
+        "definition": "valid AND acceptance=pass AND regression=pass AND integrity=clean, scored only on countable observations",
+        "name": "resolved"
+      },
+      "primary_unit": "task (12 units; repository-family sharing is a stated structural limitation, not an independence claim -- 12 nested, non-independent task units, less inferentially supportable than Study-01's 6-task design, stated plainly in reporting)",
+      "replacement_policy": {
+        "ordering": "approved replacement attempts run only after all 48 planned original cells have been attempted, in schedule order (Series._next), never at the end of the current block",
+        "rule": "series.replacement_decision, unchanged from Study-01: countable -> complete, no replacement; evaluation_pending -> evaluator re-evaluation on the preserved final working copy, never an agent rerun; external interruption / invalid:infrastructure / invalid:harness / preflight_failed -> operator-approved replacement only; invalid:fixture -> operator confirmation required, distinct from automatic replacement; invalid:leak / invalid:carryover -> series halt; at most one replacement per cell; no outcome-quality reruns; every attempt preserved; replacements never increase planned N",
+        "spec_replacement_policy": {
+          "eligible_external_interruption": true,
+          "eligible_run_validity": [
+            "invalid:infrastructure",
+            "invalid:harness",
+            "preflight_failed"
+          ],
+          "halt_run_validity": [
+            "invalid:leak",
+            "invalid:carryover"
+          ],
+          "max_replacements_per_cell": 1,
+          "operator_approval_required": true,
+          "operator_confirm_run_validity": [
+            "invalid:fixture"
+          ]
+        }
+      },
+      "research_question": "Under an identical frozen repository CLAUDE.md for each task and fully candidate-visible task constraints, does the explicit two-phase plan-then-approve workflow (C2) change contract-compliant task completion relative to the same substantive CLAUDE.md without that workflow (C1) on a new set of 12 distinct coding tasks across six repository families?",
+      "results_presentation": {
+        "key_rules": [
+          "task-by-task results first",
+          "planned-cell denominator: R resolved . F failed . M no countable observation / N planned",
+          "separate attempt / replacement / non-countable accounting",
+          "24 planned cells per configuration, 48 overall",
+          "48 planned cells does not necessarily imply 48 countable observations",
+          "primary contrast C2 - C1",
+          "agent time over all countable attempts with success/failure/timeout visible",
+          "C2 phase 1 + phase 2 breakdown and total",
+          "no weighted composite score",
+          "no significance or generalization claim unsupported by the 12-task, 6-family design"
+        ]
+      },
+      "secondary_endpoints_preregistered": [
+        "functional_pass (valid AND acceptance=pass AND regression=pass; integrity reported separately, remains part of primary resolved)",
+        "acceptance",
+        "regression",
+        "integrity",
+        "total candidate time",
+        "C2 phase-1 candidate time",
+        "C2 phase-2 candidate time",
+        "task-level resolved count out of 2",
+        "paired task x repetition transitions"
+      ],
+      "token_usage": "EXCLUDED FROM FORMAL STUDY-02 METRICS, matching Study-01's S10 rule",
+      "unnecessary_change_rubric": "EXCLUDED FROM FORMAL STUDY-02 METRICS; no frozen rubric; no weighted or composite quality score"
+    },
+    "evaluator_identity_rule": "A task's binding evaluator identity is its evaluator_identity + harness_git_sha. Runtime sandbox policy_hash values contain absolute paths and are provenance only, never a snapshot key.",
+    "execution": {
+      "c2_deadline": "one shared deadline across C2 phase 1 + phase 2; phase 2 receives the remainder, never a fresh 900 s; the inter-phase gap is not charged",
+      "effort_request": "high",
+      "model_request": "claude-sonnet-5",
+      "model_rule": "requested model identity; the observed model is checked per invocation and a mismatch fails closed (invalid:harness); no silent fallback",
+      "timeout_seconds": 900
+    },
+    "harness": {
+      "envelope": {
+        "implementation_envelope_hash": "911ea1a5c9708349d9bc9022d1d5435c3fad0e124c5958f90d2feea08d859743",
+        "planning_envelope_hash": "3dc389cb14170a85722d81230b0999e46b0e26f3a42771ea4f3b61f7875a6e6f",
+        "security_policy_hash": "6178b3c4c5bfaef24547bbffcf698bee9e0c545dfb0f6c58805ffeb8f4d3ff30"
+      },
+      "harness_git_sha": "1f576bf245411b00cd7856ac835bd651fcd281d8",
+      "study02_implementation_git_sha": "bbf8bba2ee7ffdefaca392f5c50a7d4ae585590e",
+      "toolchain": {
+        "claude_code": "2.1.263",
+        "node": "22.23.2",
+        "npm": "10.9.8",
+        "sandbox_runtime": "0.0.77"
+      }
+    },
+    "hash_rule": "study_snapshot_hash = codeagent_configlab.hashing.canonical_json_hash(payload) = sha256 of json.dumps(payload, sort_keys=True, separators=(',', ':'), ensure_ascii=False) encoded UTF-8; payload excludes study_snapshot_hash, provenance and study_freeze_commit",
+    "protocol": {
+      "amendments_in_force": [],
+      "roles": {
+        "analysis_plan": {
+          "bytes": 2987,
+          "path": "studies/study02/STUDY_02_ANALYSIS_PLAN.md",
+          "sha256": "12d9c403e4347c60c53adeaf85f891cfaaabe870034f097642d0c42f69634c33"
+        },
+        "execution_policy": {
+          "bytes": 3599,
+          "path": "studies/study02/STUDY_02_EXECUTION_POLICY.md",
+          "sha256": "2542e0430769715cd2e2e8d76a783bb884b8e9a7d37ade2331b6802107b23647"
+        },
+        "study_protocol": {
+          "bytes": 7544,
+          "path": "studies/study02/STUDY_02_PROTOCOL.md",
+          "sha256": "64f3e27b6c6c6e91122971ffe043ca4daa7b287a2a43d202344060143673ac76"
+        }
+      }
+    },
+    "run_order": {
+      "block_seeds": [
+        576357269,
+        2046211524
+      ],
+      "cells": [
+        {
+          "cell_id": "cell-1ea51533672067c6",
+          "configuration": "C1",
+          "position": 1,
+          "repetition": 1,
+          "task_id": "S2-TS-REF-02"
+        },
+        {
+          "cell_id": "cell-ff4539c0f21fb3d3",
+          "configuration": "C1",
+          "position": 2,
+          "repetition": 1,
+          "task_id": "S2-PY-BUG-01"
+        },
+        {
+          "cell_id": "cell-4e3ddf6eff2f6173",
+          "configuration": "C2",
+          "position": 3,
+          "repetition": 1,
+          "task_id": "S2-TS-BUG-01"
+        },
+        {
+          "cell_id": "cell-2eefa8b022f9b397",
+          "configuration": "C2",
+          "position": 4,
+          "repetition": 1,
+          "task_id": "S2-PY-BUG-02"
+        },
+        {
+          "cell_id": "cell-44174bea3e854abc",
+          "configuration": "C1",
+          "position": 5,
+          "repetition": 1,
+          "task_id": "S2-PY-FEAT-02"
+        },
+        {
+          "cell_id": "cell-1f4440944a089ca8",
+          "configuration": "C1",
+          "position": 6,
+          "repetition": 1,
+          "task_id": "S2-TS-FEAT-01"
+        },
+        {
+          "cell_id": "cell-5b60bf3dde1ee3af",
+          "configuration": "C2",
+          "position": 7,
+          "repetition": 1,
+          "task_id": "S2-PY-REF-01"
+        },
+        {
+          "cell_id": "cell-a378561f5b395af7",
+          "configuration": "C2",
+          "position": 8,
+          "repetition": 1,
+          "task_id": "S2-TS-FEAT-02"
+        },
+        {
+          "cell_id": "cell-31cbcc70814c2627",
+          "configuration": "C2",
+          "position": 9,
+          "repetition": 1,
+          "task_id": "S2-PY-BUG-01"
+        },
+        {
+          "cell_id": "cell-356e9641cb6bbb86",
+          "configuration": "C1",
+          "position": 10,
+          "repetition": 1,
+          "task_id": "S2-PY-REF-02"
+        },
+        {
+          "cell_id": "cell-4e8007deca368109",
+          "configuration": "C2",
+          "position": 11,
+          "repetition": 1,
+          "task_id": "S2-PY-FEAT-01"
+        },
+        {
+          "cell_id": "cell-eb80c2b46b9e2d6f",
+          "configuration": "C2",
+          "position": 12,
+          "repetition": 1,
+          "task_id": "S2-PY-FEAT-02"
+        },
+        {
+          "cell_id": "cell-32d02f966fc54554",
+          "configuration": "C1",
+          "position": 13,
+          "repetition": 1,
+          "task_id": "S2-PY-FEAT-01"
+        },
+        {
+          "cell_id": "cell-794b8afad69391ea",
+          "configuration": "C2",
+          "position": 14,
+          "repetition": 1,
+          "task_id": "S2-PY-REF-02"
+        },
+        {
+          "cell_id": "cell-fc83f8dcb63c7d17",
+          "configuration": "C1",
+          "position": 15,
+          "repetition": 1,
+          "task_id": "S2-PY-REF-01"
+        },
+        {
+          "cell_id": "cell-b11edac8e1b9fda1",
+          "configuration": "C1",
+          "position": 16,
+          "repetition": 1,
+          "task_id": "S2-PY-BUG-02"
+        },
+        {
+          "cell_id": "cell-a506d9d3925a7b6c",
+          "configuration": "C1",
+          "position": 17,
+          "repetition": 1,
+          "task_id": "S2-TS-FEAT-02"
+        },
+        {
+          "cell_id": "cell-671fef3f59f5ffce",
+          "configuration": "C2",
+          "position": 18,
+          "repetition": 1,
+          "task_id": "S2-TS-FEAT-01"
+        },
+        {
+          "cell_id": "cell-f75d67bbfef03eb6",
+          "configuration": "C1",
+          "position": 19,
+          "repetition": 1,
+          "task_id": "S2-TS-REF-01"
+        },
+        {
+          "cell_id": "cell-1af2ac018aa0a3d4",
+          "configuration": "C2",
+          "position": 20,
+          "repetition": 1,
+          "task_id": "S2-TS-REF-02"
+        },
+        {
+          "cell_id": "cell-aa59c9380ed57e1b",
+          "configuration": "C1",
+          "position": 21,
+          "repetition": 1,
+          "task_id": "S2-TS-BUG-02"
+        },
+        {
+          "cell_id": "cell-4e199c780fd6eb92",
+          "configuration": "C1",
+          "position": 22,
+          "repetition": 1,
+          "task_id": "S2-TS-BUG-01"
+        },
+        {
+          "cell_id": "cell-4ae797de1f7c3647",
+          "configuration": "C2",
+          "position": 23,
+          "repetition": 1,
+          "task_id": "S2-TS-REF-01"
+        },
+        {
+          "cell_id": "cell-4cbcaaba8a0c7898",
+          "configuration": "C2",
+          "position": 24,
+          "repetition": 1,
+          "task_id": "S2-TS-BUG-02"
+        },
+        {
+          "cell_id": "cell-b373f9cda44723bf",
+          "configuration": "C1",
+          "position": 25,
+          "repetition": 2,
+          "task_id": "S2-TS-FEAT-02"
+        },
+        {
+          "cell_id": "cell-c914075bc901cd2f",
+          "configuration": "C1",
+          "position": 26,
+          "repetition": 2,
+          "task_id": "S2-PY-BUG-02"
+        },
+        {
+          "cell_id": "cell-547bf4b519b9e395",
+          "configuration": "C2",
+          "position": 27,
+          "repetition": 2,
+          "task_id": "S2-TS-FEAT-02"
+        },
+        {
+          "cell_id": "cell-e36fbb2d45b5b654",
+          "configuration": "C1",
+          "position": 28,
+          "repetition": 2,
+          "task_id": "S2-TS-FEAT-01"
+        },
+        {
+          "cell_id": "cell-dc84731b0c3859a5",
+          "configuration": "C2",
+          "position": 29,
+          "repetition": 2,
+          "task_id": "S2-TS-REF-01"
+        },
+        {
+          "cell_id": "cell-6c1b31ad86a93946",
+          "configuration": "C2",
+          "position": 30,
+          "repetition": 2,
+          "task_id": "S2-PY-BUG-02"
+        },
+        {
+          "cell_id": "cell-496fb36510d50457",
+          "configuration": "C2",
+          "position": 31,
+          "repetition": 2,
+          "task_id": "S2-PY-REF-02"
+        },
+        {
+          "cell_id": "cell-686dcd83a69247d0",
+          "configuration": "C1",
+          "position": 32,
+          "repetition": 2,
+          "task_id": "S2-PY-BUG-01"
+        },
+        {
+          "cell_id": "cell-9b75d3d2107e7e8f",
+          "configuration": "C2",
+          "position": 33,
+          "repetition": 2,
+          "task_id": "S2-TS-FEAT-01"
+        },
+        {
+          "cell_id": "cell-c951efdc193f6fbf",
+          "configuration": "C2",
+          "position": 34,
+          "repetition": 2,
+          "task_id": "S2-TS-BUG-02"
+        },
+        {
+          "cell_id": "cell-854d1a1cb99dc90c",
+          "configuration": "C1",
+          "position": 35,
+          "repetition": 2,
+          "task_id": "S2-TS-REF-02"
+        },
+        {
+          "cell_id": "cell-085ee0bd71c48859",
+          "configuration": "C2",
+          "position": 36,
+          "repetition": 2,
+          "task_id": "S2-TS-BUG-01"
+        },
+        {
+          "cell_id": "cell-e5ffca2a979d76db",
+          "configuration": "C2",
+          "position": 37,
+          "repetition": 2,
+          "task_id": "S2-PY-FEAT-01"
+        },
+        {
+          "cell_id": "cell-de206f9d572396b6",
+          "configuration": "C1",
+          "position": 38,
+          "repetition": 2,
+          "task_id": "S2-TS-BUG-01"
+        },
+        {
+          "cell_id": "cell-384d60725e3d9310",
+          "configuration": "C2",
+          "position": 39,
+          "repetition": 2,
+          "task_id": "S2-PY-REF-01"
+        },
+        {
+          "cell_id": "cell-a03ac66681adfda8",
+          "configuration": "C1",
+          "position": 40,
+          "repetition": 2,
+          "task_id": "S2-TS-REF-01"
+        },
+        {
+          "cell_id": "cell-bdcb91f9b948aed3",
+          "configuration": "C1",
+          "position": 41,
+          "repetition": 2,
+          "task_id": "S2-PY-REF-02"
+        },
+        {
+          "cell_id": "cell-cffc4007fe6505fb",
+          "configuration": "C2",
+          "position": 42,
+          "repetition": 2,
+          "task_id": "S2-TS-REF-02"
+        },
+        {
+          "cell_id": "cell-c6817fdcbaab8f12",
+          "configuration": "C1",
+          "position": 43,
+          "repetition": 2,
+          "task_id": "S2-PY-FEAT-02"
+        },
+        {
+          "cell_id": "cell-e3d12fb1168a50ed",
+          "configuration": "C2",
+          "position": 44,
+          "repetition": 2,
+          "task_id": "S2-PY-FEAT-02"
+        },
+        {
+          "cell_id": "cell-6f471f821a1a82b0",
+          "configuration": "C2",
+          "position": 45,
+          "repetition": 2,
+          "task_id": "S2-PY-BUG-01"
+        },
+        {
+          "cell_id": "cell-b923951a43ede07c",
+          "configuration": "C1",
+          "position": 46,
+          "repetition": 2,
+          "task_id": "S2-PY-REF-01"
+        },
+        {
+          "cell_id": "cell-16fac992e5fb7331",
+          "configuration": "C1",
+          "position": 47,
+          "repetition": 2,
+          "task_id": "S2-TS-BUG-02"
+        },
+        {
+          "cell_id": "cell-86f61dc9a2565f05",
+          "configuration": "C1",
+          "position": 48,
+          "repetition": 2,
+          "task_id": "S2-PY-FEAT-01"
+        }
+      ],
+      "configurations": [
+        "C1",
+        "C2"
+      ],
+      "files": {
+        "schedule.json": {
+          "bytes": 12760,
+          "path": "studies/study02/schedule.json",
+          "sha256": "b0c3197e1e58cad246c1344c89322ff6fd12567ecc3735d008270d4c986125f6"
+        },
+        "series.json": {
+          "bytes": 1886,
+          "path": "studies/study02/series.json",
+          "sha256": "df7c1e1c94f3e8ac287e657232aebb4701086a16c4d1685d0f29de0511799e54"
+        },
+        "spec.json": {
+          "bytes": 10221,
+          "path": "studies/study02/spec.json",
+          "sha256": "646efc0fbf7314a1efae57c0f9d2c4830782a179557e80eec99f5a53afe3f827"
+        }
+      },
+      "namespace": "FINAL",
+      "order_rule": "EXPERIMENT_PROTOCOL_V0 §11 blocked-by-repetition; per-block derived seed",
+      "order_seed_text": "configlab-study02-v1-order",
+      "planned_cells": 48,
+      "repetitions": 2,
+      "schedule_hash": "6a1f256f5fbb4502a50cbb20b6db61751144e263f45bb51294953056555c86d5",
+      "series_id": "study02-v1",
+      "spec_hash": "175c882abc42ccdd7b5ed488cdcac789130fdb09a93a2f7199d1863d5e084682"
+    },
+    "schema": "configlab-study-snapshot/v1",
+    "study_id": "study02",
+    "tasks": [
+      {
+        "claude_md_hash": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70",
+        "evaluator_identity": "dd0308add02486de22900d9610dc4f8153a96345e840d4d497b64a87552a1ba2",
+        "gate_status": "PASS",
+        "generated_outputs": [],
+        "language": "python",
+        "package_dir": "fixtures/study02/S2-PY-BUG-01",
+        "repository_family": "throttlekit",
+        "statement_hash": "6b723c98f94c60f589c545d3c49dd814189996e61043801e74ef2287c8358a38",
+        "task_category": "bugfix",
+        "task_id": "S2-PY-BUG-01",
+        "task_version_hash": "15baef1e9eb3c5ef52fb4dc110736bf238e836631b788b36a54281cebb44c6d6"
+      },
+      {
+        "claude_md_hash": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617",
+        "evaluator_identity": "8297d6df4a1e2fc28e40175f66b9fdd47f0af1de9b01a67764d98d5dd7f8c6a9",
+        "gate_status": "PASS",
+        "generated_outputs": [],
+        "language": "python",
+        "package_dir": "fixtures/study02/S2-PY-BUG-02",
+        "repository_family": "stocktrack",
+        "statement_hash": "95a4aecd632988887916eca65c113916dc5d68a0424d10910b6ec6fba95b2590",
+        "task_category": "bugfix",
+        "task_id": "S2-PY-BUG-02",
+        "task_version_hash": "cbf7f322d41aad8d788356e1d431192b47f45ea484f5481e3853e0ccfeb06008"
+      },
+      {
+        "claude_md_hash": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617",
+        "evaluator_identity": "deff4bd7a91f142e5442b2b59609032d329cd420da173fdf99d581f3c2ec69bb",
+        "gate_status": "PASS",
+        "generated_outputs": [],
+        "language": "python",
+        "package_dir": "fixtures/study02/S2-PY-FEAT-01",
+        "repository_family": "stocktrack",
+        "statement_hash": "9b16f1be6aecdcf2a58f8f2284334af709dd730161bfed6e92e9d432d2284a04",
+        "task_category": "feature",
+        "task_id": "S2-PY-FEAT-01",
+        "task_version_hash": "e10701feb35587f89a4d65e8928cc02a19c0e1abf4ef92d59cfd58c80335fbb5"
+      },
+      {
+        "claude_md_hash": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c",
+        "evaluator_identity": "b83cf708262a0f3b362c38e1c94c9a1105825ce73fa510c00a0db87abb348d1d",
+        "gate_status": "PASS",
+        "generated_outputs": [],
+        "language": "python",
+        "package_dir": "fixtures/study02/S2-PY-FEAT-02",
+        "repository_family": "configmerge",
+        "statement_hash": "ec7e6335f421d96368b51e049d5f579cafb100d8fbe2f65ed4a650a64f859ad4",
+        "task_category": "feature",
+        "task_id": "S2-PY-FEAT-02",
+        "task_version_hash": "afd8da158c5e7e895c25a8b2c3a5be4fdf3cc732f1ee940fb27cd43221cb070d"
+      },
+      {
+        "claude_md_hash": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c",
+        "evaluator_identity": "5cb281c756fcb9115787743a3d2b6aab06ede65452325e29f16df8370192ac3e",
+        "gate_status": "PASS",
+        "generated_outputs": [],
+        "language": "python",
+        "package_dir": "fixtures/study02/S2-PY-REF-01",
+        "repository_family": "configmerge",
+        "statement_hash": "9ca62fd6c9717c0a1ab361c421ca5f8f0b264d7a551893ef5858382b07c4d089",
+        "task_category": "refactor",
+        "task_id": "S2-PY-REF-01",
+        "task_version_hash": "7e132695f148bb6434ed2cedddd7c1781bfcddc745957d0857d679c97e198df2"
+      },
+      {
+        "claude_md_hash": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70",
+        "evaluator_identity": "4407eeaf13399ea0e37176a970af21f387a748554b25e354b0dba58010a9e2cd",
+        "gate_status": "PASS",
+        "generated_outputs": [],
+        "language": "python",
+        "package_dir": "fixtures/study02/S2-PY-REF-02",
+        "repository_family": "throttlekit",
+        "statement_hash": "70b84494f70f7193259ff375338b7c4e3da38696eeeb13deb2b00cf515c8f0c6",
+        "task_category": "refactor",
+        "task_id": "S2-PY-REF-02",
+        "task_version_hash": "bcab4ddfe4c4f35a139deeda040cf79f4936e85083846a183dbef9a885fd3bb8"
+      },
+      {
+        "claude_md_hash": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74",
+        "evaluator_identity": "ff6b6cb84388945fd1f88959b55321f1e0998db90aed9fd0986ec96644f4fdae",
+        "gate_status": "PASS",
+        "generated_outputs": [
+          "dist/**",
+          "*.tsbuildinfo"
+        ],
+        "language": "typescript",
+        "package_dir": "fixtures/study02/S2-TS-BUG-01",
+        "repository_family": "dedupe-cache",
+        "statement_hash": "9ef28c8068edbb69c36a757c5d74a3ae85b7a35a43a1b89d3ec1a618d2b86401",
+        "task_category": "bugfix",
+        "task_id": "S2-TS-BUG-01",
+        "task_version_hash": "efb3c9eb4edec601aa525e692c81c0eb21ac03fec9b4d9fbe043fbacfd8ed28a"
+      },
+      {
+        "claude_md_hash": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f",
+        "evaluator_identity": "be077a3f906f140fb5821264bb700556d1e958bb6e356fb03d96ce0b7840b318",
+        "gate_status": "PASS",
+        "generated_outputs": [
+          "dist/**",
+          "*.tsbuildinfo"
+        ],
+        "language": "typescript",
+        "package_dir": "fixtures/study02/S2-TS-BUG-02",
+        "repository_family": "qs-normalize",
+        "statement_hash": "b353069ba6ddf062426cbe94ce5770331b0754f3f0c2f789a173e864d6e97593",
+        "task_category": "bugfix",
+        "task_id": "S2-TS-BUG-02",
+        "task_version_hash": "687444e98f23bd448706562f889bfbf7855b7867f7fb68b04230a0e060bf09b0"
+      },
+      {
+        "claude_md_hash": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f",
+        "evaluator_identity": "7f062690986333a6f2802b5eed3682ec2a60f27fab37e1260c9c6d580c36d779",
+        "gate_status": "PASS",
+        "generated_outputs": [
+          "dist/**",
+          "*.tsbuildinfo"
+        ],
+        "language": "typescript",
+        "package_dir": "fixtures/study02/S2-TS-FEAT-01",
+        "repository_family": "qs-normalize",
+        "statement_hash": "8cf2514c32492af7f2ed394c4ae6cd817b8e7b27518723de529729e86d2472a7",
+        "task_category": "feature",
+        "task_id": "S2-TS-FEAT-01",
+        "task_version_hash": "e3d09291908ccecf5a0f19e07d04da5bc076869ff6cbfca129865bd45136f0e2"
+      },
+      {
+        "claude_md_hash": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328",
+        "evaluator_identity": "d924b892d00f5da54c8b3e9eb3c33174474066348b3f0037fd7f4c061b13859d",
+        "gate_status": "PASS",
+        "generated_outputs": [
+          "dist/**",
+          "*.tsbuildinfo"
+        ],
+        "language": "typescript",
+        "package_dir": "fixtures/study02/S2-TS-FEAT-02",
+        "repository_family": "mini-queue",
+        "statement_hash": "f3bb281068956eb849c97dad5d362d04c5d4dee2c90b7c67a1cdf52436b23a2a",
+        "task_category": "feature",
+        "task_id": "S2-TS-FEAT-02",
+        "task_version_hash": "da7452da78b7cced58549dd1547d85eb16f1ea4820bf90631b3489dc5e3c0dcd"
+      },
+      {
+        "claude_md_hash": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328",
+        "evaluator_identity": "aa6a898743e7031ffb18dcaa40a45d808bba891a20225b3cbaec252e16b12f91",
+        "gate_status": "PASS",
+        "generated_outputs": [
+          "dist/**",
+          "*.tsbuildinfo"
+        ],
+        "language": "typescript",
+        "package_dir": "fixtures/study02/S2-TS-REF-01",
+        "repository_family": "mini-queue",
+        "statement_hash": "28eb747aa918141afe4b456027c29cad659e28886c5f940d275bbd3d33503557",
+        "task_category": "refactor",
+        "task_id": "S2-TS-REF-01",
+        "task_version_hash": "cb50fc71a6a6ffc34c4154167a17d0d93b4b559030896823a63deed607860f02"
+      },
+      {
+        "claude_md_hash": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74",
+        "evaluator_identity": "9b187368afc6d29fea25e02635edd5955c67c38c790de5102e4f25f3634d188d",
+        "gate_status": "PASS",
+        "generated_outputs": [
+          "dist/**",
+          "*.tsbuildinfo"
+        ],
+        "language": "typescript",
+        "package_dir": "fixtures/study02/S2-TS-REF-02",
+        "repository_family": "dedupe-cache",
+        "statement_hash": "e07274ac13471730f2f0dff37310633a5a5d634316b896050a26343ff89fbbb0",
+        "task_category": "refactor",
+        "task_id": "S2-TS-REF-02",
+        "task_version_hash": "dfd38e8822407c065b89512ef464f3e65dbd898ae56d43744bde5b2bc0ff8655"
+      }
+    ],
+    "treatments": {
+      "approval_message": {
+        "bytes": 101,
+        "path": "treatments/study02-v1/approval_message.txt",
+        "sha256": "dbf445a514ca2ae9576935d09d7add9cf9157f88ca01ae1388d65a1f1009ee14"
+      },
+      "canonical_task_treatment_mapping": [
+        {
+          "claude_md_hash": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70",
+          "task_id": "S2-PY-BUG-01"
+        },
+        {
+          "claude_md_hash": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617",
+          "task_id": "S2-PY-BUG-02"
+        },
+        {
+          "claude_md_hash": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617",
+          "task_id": "S2-PY-FEAT-01"
+        },
+        {
+          "claude_md_hash": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c",
+          "task_id": "S2-PY-FEAT-02"
+        },
+        {
+          "claude_md_hash": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c",
+          "task_id": "S2-PY-REF-01"
+        },
+        {
+          "claude_md_hash": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70",
+          "task_id": "S2-PY-REF-02"
+        },
+        {
+          "claude_md_hash": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74",
+          "task_id": "S2-TS-BUG-01"
+        },
+        {
+          "claude_md_hash": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f",
+          "task_id": "S2-TS-BUG-02"
+        },
+        {
+          "claude_md_hash": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f",
+          "task_id": "S2-TS-FEAT-01"
+        },
+        {
+          "claude_md_hash": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328",
+          "task_id": "S2-TS-FEAT-02"
+        },
+        {
+          "claude_md_hash": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328",
+          "task_id": "S2-TS-REF-01"
+        },
+        {
+          "claude_md_hash": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74",
+          "task_id": "S2-TS-REF-02"
+        }
+      ],
+      "canonical_task_treatment_mapping_hash": "61fa81d034bf5a65d9f88e524cb15355ec4da6249ae386886666f08e69b2ca0a",
+      "claude_md_family_files": {
+        "claude_md_S2-PY-A.md": {
+          "bytes": 1961,
+          "path": "treatments/study02-v1/claude_md_S2-PY-A.md",
+          "sha256": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70"
+        },
+        "claude_md_S2-PY-B.md": {
+          "bytes": 1921,
+          "path": "treatments/study02-v1/claude_md_S2-PY-B.md",
+          "sha256": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617"
+        },
+        "claude_md_S2-PY-C.md": {
+          "bytes": 1990,
+          "path": "treatments/study02-v1/claude_md_S2-PY-C.md",
+          "sha256": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c"
+        },
+        "claude_md_S2-TS-A.md": {
+          "bytes": 2240,
+          "path": "treatments/study02-v1/claude_md_S2-TS-A.md",
+          "sha256": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74"
+        },
+        "claude_md_S2-TS-B.md": {
+          "bytes": 2216,
+          "path": "treatments/study02-v1/claude_md_S2-TS-B.md",
+          "sha256": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f"
+        },
+        "claude_md_S2-TS-C.md": {
+          "bytes": 2221,
+          "path": "treatments/study02-v1/claude_md_S2-TS-C.md",
+          "sha256": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328"
+        }
+      },
+      "planning_wrapper": {
+        "bytes": 595,
+        "path": "treatments/study02-v1/planning_wrapper.txt",
+        "sha256": "299b08446b440345a7f177258208c3bf8b1d33addc3934ed1356bb72a0c47fc4"
+      },
+      "policy": "Explicit per-task routing (Gate 7E/7F/7G): six repository-family-specific CLAUDE.md files, one per family, two tasks per family receiving byte-identical treatment; shared planning_wrapper/approval_message across all 12 tasks and both configurations; no treatment tuning",
+      "spec_treatment_hashes": {
+        "approval_message_hash": "dbf445a514ca2ae9576935d09d7add9cf9157f88ca01ae1388d65a1f1009ee14",
+        "claude_md_hash": null,
+        "claude_md_routing": [
+          {
+            "claude_md_hash": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70",
+            "task_id": "S2-PY-BUG-01"
+          },
+          {
+            "claude_md_hash": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617",
+            "task_id": "S2-PY-BUG-02"
+          },
+          {
+            "claude_md_hash": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617",
+            "task_id": "S2-PY-FEAT-01"
+          },
+          {
+            "claude_md_hash": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c",
+            "task_id": "S2-PY-FEAT-02"
+          },
+          {
+            "claude_md_hash": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c",
+            "task_id": "S2-PY-REF-01"
+          },
+          {
+            "claude_md_hash": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70",
+            "task_id": "S2-PY-REF-02"
+          },
+          {
+            "claude_md_hash": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74",
+            "task_id": "S2-TS-BUG-01"
+          },
+          {
+            "claude_md_hash": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f",
+            "task_id": "S2-TS-BUG-02"
+          },
+          {
+            "claude_md_hash": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f",
+            "task_id": "S2-TS-FEAT-01"
+          },
+          {
+            "claude_md_hash": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328",
+            "task_id": "S2-TS-FEAT-02"
+          },
+          {
+            "claude_md_hash": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328",
+            "task_id": "S2-TS-REF-01"
+          },
+          {
+            "claude_md_hash": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74",
+            "task_id": "S2-TS-REF-02"
+          }
+        ],
+        "planning_wrapper_hash": "299b08446b440345a7f177258208c3bf8b1d33addc3934ed1356bb72a0c47fc4"
+      }
+    }
+  },
+  "provenance": {
+    "built_at": "2026-11-03T16:13:33Z",
+    "classification": "runtime / path-bound evidence; not covered by study_snapshot_hash",
+    "planned_operational_series_root": "/home/cclab/cclab-study02/series/study02-v1",
+    "planned_operational_series_root_note": "not yet created; no Study-02 production execution has occurred as of this freeze",
+    "python_version": "3.14.4"
+  },
+  "study_snapshot_hash": "3d7f238963577fb3f99ea675e6e70c2a0611ac29d5c7d36af4a9deface5a0a37"
+}

@@ -1,0 +1,18 @@
+{
+  "captured_at_gate": "STUDY-02 GATE 7H (live-verified), reconfirmed at Gate 7I freeze",
+  "live_verified": true,
+  "model_request": "claude-sonnet-5",
+  "effort_request": "high",
+  "claude_code_version": "2.1.263",
+  "node_version": "v22.23.2",
+  "npm_version": "10.9.8",
+  "harness_git_sha": "1f576bf245411b00cd7856ac835bd651fcd281d8",
+  "study02_implementation_git_sha": "bbf8bba2ee7ffdefaca392f5c50a7d4ae585590e",
+  "informational": {
+    "python_version": "3.14.4",
+    "git_version": "2.53.0",
+    "wsl_kernel": "6.18.33.2-microsoft-standard-WSL2",
+    "bubblewrap_version": "0.11.1"
+  },
+  "no_credentials_recorded": true
+}

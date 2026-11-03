@@ -1,0 +1,398 @@
+{
+  "block_seeds": [
+    576357269,
+    2046211524
+  ],
+  "cells": [
+    {
+      "cell_id": "cell-1ea51533672067c6",
+      "configuration": "C1",
+      "position": 1,
+      "repetition": 1,
+      "task_id": "S2-TS-REF-02",
+      "task_version_hash": "dfd38e8822407c065b89512ef464f3e65dbd898ae56d43744bde5b2bc0ff8655"
+    },
+    {
+      "cell_id": "cell-ff4539c0f21fb3d3",
+      "configuration": "C1",
+      "position": 2,
+      "repetition": 1,
+      "task_id": "S2-PY-BUG-01",
+      "task_version_hash": "15baef1e9eb3c5ef52fb4dc110736bf238e836631b788b36a54281cebb44c6d6"
+    },
+    {
+      "cell_id": "cell-4e3ddf6eff2f6173",
+      "configuration": "C2",
+      "position": 3,
+      "repetition": 1,
+      "task_id": "S2-TS-BUG-01",
+      "task_version_hash": "efb3c9eb4edec601aa525e692c81c0eb21ac03fec9b4d9fbe043fbacfd8ed28a"
+    },
+    {
+      "cell_id": "cell-2eefa8b022f9b397",
+      "configuration": "C2",
+      "position": 4,
+      "repetition": 1,
+      "task_id": "S2-PY-BUG-02",
+      "task_version_hash": "cbf7f322d41aad8d788356e1d431192b47f45ea484f5481e3853e0ccfeb06008"
+    },
+    {
+      "cell_id": "cell-44174bea3e854abc",
+      "configuration": "C1",
+      "position": 5,
+      "repetition": 1,
+      "task_id": "S2-PY-FEAT-02",
+      "task_version_hash": "afd8da158c5e7e895c25a8b2c3a5be4fdf3cc732f1ee940fb27cd43221cb070d"
+    },
+    {
+      "cell_id": "cell-1f4440944a089ca8",
+      "configuration": "C1",
+      "position": 6,
+      "repetition": 1,
+      "task_id": "S2-TS-FEAT-01",
+      "task_version_hash": "e3d09291908ccecf5a0f19e07d04da5bc076869ff6cbfca129865bd45136f0e2"
+    },
+    {
+      "cell_id": "cell-5b60bf3dde1ee3af",
+      "configuration": "C2",
+      "position": 7,
+      "repetition": 1,
+      "task_id": "S2-PY-REF-01",
+      "task_version_hash": "7e132695f148bb6434ed2cedddd7c1781bfcddc745957d0857d679c97e198df2"
+    },
+    {
+      "cell_id": "cell-a378561f5b395af7",
+      "configuration": "C2",
+      "position": 8,
+      "repetition": 1,
+      "task_id": "S2-TS-FEAT-02",
+      "task_version_hash": "da7452da78b7cced58549dd1547d85eb16f1ea4820bf90631b3489dc5e3c0dcd"
+    },
+    {
+      "cell_id": "cell-31cbcc70814c2627",
+      "configuration": "C2",
+      "position": 9,
+      "repetition": 1,
+      "task_id": "S2-PY-BUG-01",
+      "task_version_hash": "15baef1e9eb3c5ef52fb4dc110736bf238e836631b788b36a54281cebb44c6d6"
+    },
+    {
+      "cell_id": "cell-356e9641cb6bbb86",
+      "configuration": "C1",
+      "position": 10,
+      "repetition": 1,
+      "task_id": "S2-PY-REF-02",
+      "task_version_hash": "bcab4ddfe4c4f35a139deeda040cf79f4936e85083846a183dbef9a885fd3bb8"
+    },
+    {
+      "cell_id": "cell-4e8007deca368109",
+      "configuration": "C2",
+      "position": 11,
+      "repetition": 1,
+      "task_id": "S2-PY-FEAT-01",
+      "task_version_hash": "e10701feb35587f89a4d65e8928cc02a19c0e1abf4ef92d59cfd58c80335fbb5"
+    },
+    {
+      "cell_id": "cell-eb80c2b46b9e2d6f",
+      "configuration": "C2",
+      "position": 12,
+      "repetition": 1,
+      "task_id": "S2-PY-FEAT-02",
+      "task_version_hash": "afd8da158c5e7e895c25a8b2c3a5be4fdf3cc732f1ee940fb27cd43221cb070d"
+    },
+    {
+      "cell_id": "cell-32d02f966fc54554",
+      "configuration": "C1",
+      "position": 13,
+      "repetition": 1,
+      "task_id": "S2-PY-FEAT-01",
+      "task_version_hash": "e10701feb35587f89a4d65e8928cc02a19c0e1abf4ef92d59cfd58c80335fbb5"
+    },
+    {
+      "cell_id": "cell-794b8afad69391ea",
+      "configuration": "C2",
+      "position": 14,
+      "repetition": 1,
+      "task_id": "S2-PY-REF-02",
+      "task_version_hash": "bcab4ddfe4c4f35a139deeda040cf79f4936e85083846a183dbef9a885fd3bb8"
+    },
+    {
+      "cell_id": "cell-fc83f8dcb63c7d17",
+      "configuration": "C1",
+      "position": 15,
+      "repetition": 1,
+      "task_id": "S2-PY-REF-01",
+      "task_version_hash": "7e132695f148bb6434ed2cedddd7c1781bfcddc745957d0857d679c97e198df2"
+    },
+    {
+      "cell_id": "cell-b11edac8e1b9fda1",
+      "configuration": "C1",
+      "position": 16,
+      "repetition": 1,
+      "task_id": "S2-PY-BUG-02",
+      "task_version_hash": "cbf7f322d41aad8d788356e1d431192b47f45ea484f5481e3853e0ccfeb06008"
+    },
+    {
+      "cell_id": "cell-a506d9d3925a7b6c",
+      "configuration": "C1",
+      "position": 17,
+      "repetition": 1,
+      "task_id": "S2-TS-FEAT-02",
+      "task_version_hash": "da7452da78b7cced58549dd1547d85eb16f1ea4820bf90631b3489dc5e3c0dcd"
+    },
+    {
+      "cell_id": "cell-671fef3f59f5ffce",
+      "configuration": "C2",
+      "position": 18,
+      "repetition": 1,
+      "task_id": "S2-TS-FEAT-01",
+      "task_version_hash": "e3d09291908ccecf5a0f19e07d04da5bc076869ff6cbfca129865bd45136f0e2"
+    },
+    {
+      "cell_id": "cell-f75d67bbfef03eb6",
+      "configuration": "C1",
+      "position": 19,
+      "repetition": 1,
+      "task_id": "S2-TS-REF-01",
+      "task_version_hash": "cb50fc71a6a6ffc34c4154167a17d0d93b4b559030896823a63deed607860f02"
+    },
+    {
+      "cell_id": "cell-1af2ac018aa0a3d4",
+      "configuration": "C2",
+      "position": 20,
+      "repetition": 1,
+      "task_id": "S2-TS-REF-02",
+      "task_version_hash": "dfd38e8822407c065b89512ef464f3e65dbd898ae56d43744bde5b2bc0ff8655"
+    },
+    {
+      "cell_id": "cell-aa59c9380ed57e1b",
+      "configuration": "C1",
+      "position": 21,
+      "repetition": 1,
+      "task_id": "S2-TS-BUG-02",
+      "task_version_hash": "687444e98f23bd448706562f889bfbf7855b7867f7fb68b04230a0e060bf09b0"
+    },
+    {
+      "cell_id": "cell-4e199c780fd6eb92",
+      "configuration": "C1",
+      "position": 22,
+      "repetition": 1,
+      "task_id": "S2-TS-BUG-01",
+      "task_version_hash": "efb3c9eb4edec601aa525e692c81c0eb21ac03fec9b4d9fbe043fbacfd8ed28a"
+    },
+    {
+      "cell_id": "cell-4ae797de1f7c3647",
+      "configuration": "C2",
+      "position": 23,
+      "repetition": 1,
+      "task_id": "S2-TS-REF-01",
+      "task_version_hash": "cb50fc71a6a6ffc34c4154167a17d0d93b4b559030896823a63deed607860f02"
+    },
+    {
+      "cell_id": "cell-4cbcaaba8a0c7898",
+      "configuration": "C2",
+      "position": 24,
+      "repetition": 1,
+      "task_id": "S2-TS-BUG-02",
+      "task_version_hash": "687444e98f23bd448706562f889bfbf7855b7867f7fb68b04230a0e060bf09b0"
+    },
+    {
+      "cell_id": "cell-b373f9cda44723bf",
+      "configuration": "C1",
+      "position": 25,
+      "repetition": 2,
+      "task_id": "S2-TS-FEAT-02",
+      "task_version_hash": "da7452da78b7cced58549dd1547d85eb16f1ea4820bf90631b3489dc5e3c0dcd"
+    },
+    {
+      "cell_id": "cell-c914075bc901cd2f",
+      "configuration": "C1",
+      "position": 26,
+      "repetition": 2,
+      "task_id": "S2-PY-BUG-02",
+      "task_version_hash": "cbf7f322d41aad8d788356e1d431192b47f45ea484f5481e3853e0ccfeb06008"
+    },
+    {
+      "cell_id": "cell-547bf4b519b9e395",
+      "configuration": "C2",
+      "position": 27,
+      "repetition": 2,
+      "task_id": "S2-TS-FEAT-02",
+      "task_version_hash": "da7452da78b7cced58549dd1547d85eb16f1ea4820bf90631b3489dc5e3c0dcd"
+    },
+    {
+      "cell_id": "cell-e36fbb2d45b5b654",
+      "configuration": "C1",
+      "position": 28,
+      "repetition": 2,
+      "task_id": "S2-TS-FEAT-01",
+      "task_version_hash": "e3d09291908ccecf5a0f19e07d04da5bc076869ff6cbfca129865bd45136f0e2"
+    },
+    {
+      "cell_id": "cell-dc84731b0c3859a5",
+      "configuration": "C2",
+      "position": 29,
+      "repetition": 2,
+      "task_id": "S2-TS-REF-01",
+      "task_version_hash": "cb50fc71a6a6ffc34c4154167a17d0d93b4b559030896823a63deed607860f02"
+    },
+    {
+      "cell_id": "cell-6c1b31ad86a93946",
+      "configuration": "C2",
+      "position": 30,
+      "repetition": 2,
+      "task_id": "S2-PY-BUG-02",
+      "task_version_hash": "cbf7f322d41aad8d788356e1d431192b47f45ea484f5481e3853e0ccfeb06008"
+    },
+    {
+      "cell_id": "cell-496fb36510d50457",
+      "configuration": "C2",
+      "position": 31,
+      "repetition": 2,
+      "task_id": "S2-PY-REF-02",
+      "task_version_hash": "bcab4ddfe4c4f35a139deeda040cf79f4936e85083846a183dbef9a885fd3bb8"
+    },
+    {
+      "cell_id": "cell-686dcd83a69247d0",
+      "configuration": "C1",
+      "position": 32,
+      "repetition": 2,
+      "task_id": "S2-PY-BUG-01",
+      "task_version_hash": "15baef1e9eb3c5ef52fb4dc110736bf238e836631b788b36a54281cebb44c6d6"
+    },
+    {
+      "cell_id": "cell-9b75d3d2107e7e8f",
+      "configuration": "C2",
+      "position": 33,
+      "repetition": 2,
+      "task_id": "S2-TS-FEAT-01",
+      "task_version_hash": "e3d09291908ccecf5a0f19e07d04da5bc076869ff6cbfca129865bd45136f0e2"
+    },
+    {
+      "cell_id": "cell-c951efdc193f6fbf",
+      "configuration": "C2",
+      "position": 34,
+      "repetition": 2,
+      "task_id": "S2-TS-BUG-02",
+      "task_version_hash": "687444e98f23bd448706562f889bfbf7855b7867f7fb68b04230a0e060bf09b0"
+    },
+    {
+      "cell_id": "cell-854d1a1cb99dc90c",
+      "configuration": "C1",
+      "position": 35,
+      "repetition": 2,
+      "task_id": "S2-TS-REF-02",
+      "task_version_hash": "dfd38e8822407c065b89512ef464f3e65dbd898ae56d43744bde5b2bc0ff8655"
+    },
+    {
+      "cell_id": "cell-085ee0bd71c48859",
+      "configuration": "C2",
+      "position": 36,
+      "repetition": 2,
+      "task_id": "S2-TS-BUG-01",
+      "task_version_hash": "efb3c9eb4edec601aa525e692c81c0eb21ac03fec9b4d9fbe043fbacfd8ed28a"
+    },
+    {
+      "cell_id": "cell-e5ffca2a979d76db",
+      "configuration": "C2",
+      "position": 37,
+      "repetition": 2,
+      "task_id": "S2-PY-FEAT-01",
+      "task_version_hash": "e10701feb35587f89a4d65e8928cc02a19c0e1abf4ef92d59cfd58c80335fbb5"
+    },
+    {
+      "cell_id": "cell-de206f9d572396b6",
+      "configuration": "C1",
+      "position": 38,
+      "repetition": 2,
+      "task_id": "S2-TS-BUG-01",
+      "task_version_hash": "efb3c9eb4edec601aa525e692c81c0eb21ac03fec9b4d9fbe043fbacfd8ed28a"
+    },
+    {
+      "cell_id": "cell-384d60725e3d9310",
+      "configuration": "C2",
+      "position": 39,
+      "repetition": 2,
+      "task_id": "S2-PY-REF-01",
+      "task_version_hash": "7e132695f148bb6434ed2cedddd7c1781bfcddc745957d0857d679c97e198df2"
+    },
+    {
+      "cell_id": "cell-a03ac66681adfda8",
+      "configuration": "C1",
+      "position": 40,
+      "repetition": 2,
+      "task_id": "S2-TS-REF-01",
+      "task_version_hash": "cb50fc71a6a6ffc34c4154167a17d0d93b4b559030896823a63deed607860f02"
+    },
+    {
+      "cell_id": "cell-bdcb91f9b948aed3",
+      "configuration": "C1",
+      "position": 41,
+      "repetition": 2,
+      "task_id": "S2-PY-REF-02",
+      "task_version_hash": "bcab4ddfe4c4f35a139deeda040cf79f4936e85083846a183dbef9a885fd3bb8"
+    },
+    {
+      "cell_id": "cell-cffc4007fe6505fb",
+      "configuration": "C2",
+      "position": 42,
+      "repetition": 2,
+      "task_id": "S2-TS-REF-02",
+      "task_version_hash": "dfd38e8822407c065b89512ef464f3e65dbd898ae56d43744bde5b2bc0ff8655"
+    },
+    {
+      "cell_id": "cell-c6817fdcbaab8f12",
+      "configuration": "C1",
+      "position": 43,
+      "repetition": 2,
+      "task_id": "S2-PY-FEAT-02",
+      "task_version_hash": "afd8da158c5e7e895c25a8b2c3a5be4fdf3cc732f1ee940fb27cd43221cb070d"
+    },
+    {
+      "cell_id": "cell-e3d12fb1168a50ed",
+      "configuration": "C2",
+      "position": 44,
+      "repetition": 2,
+      "task_id": "S2-PY-FEAT-02",
+      "task_version_hash": "afd8da158c5e7e895c25a8b2c3a5be4fdf3cc732f1ee940fb27cd43221cb070d"
+    },
+    {
+      "cell_id": "cell-6f471f821a1a82b0",
+      "configuration": "C2",
+      "position": 45,
+      "repetition": 2,
+      "task_id": "S2-PY-BUG-01",
+      "task_version_hash": "15baef1e9eb3c5ef52fb4dc110736bf238e836631b788b36a54281cebb44c6d6"
+    },
+    {
+      "cell_id": "cell-b923951a43ede07c",
+      "configuration": "C1",
+      "position": 46,
+      "repetition": 2,
+      "task_id": "S2-PY-REF-01",
+      "task_version_hash": "7e132695f148bb6434ed2cedddd7c1781bfcddc745957d0857d679c97e198df2"
+    },
+    {
+      "cell_id": "cell-16fac992e5fb7331",
+      "configuration": "C1",
+      "position": 47,
+      "repetition": 2,
+      "task_id": "S2-TS-BUG-02",
+      "task_version_hash": "687444e98f23bd448706562f889bfbf7855b7867f7fb68b04230a0e060bf09b0"
+    },
+    {
+      "cell_id": "cell-86f61dc9a2565f05",
+      "configuration": "C1",
+      "position": 48,
+      "repetition": 2,
+      "task_id": "S2-PY-FEAT-01",
+      "task_version_hash": "e10701feb35587f89a4d65e8928cc02a19c0e1abf4ef92d59cfd58c80335fbb5"
+    }
+  ],
+  "order_rule": "EXPERIMENT_PROTOCOL_V0 \u00a711 blocked-by-repetition; per-block derived seed",
+  "order_seed_text": "configlab-study02-v1-order",
+  "pilot_version": "study02-v1",
+  "schedule_hash": "6a1f256f5fbb4502a50cbb20b6db61751144e263f45bb51294953056555c86d5",
+  "schema": "pilot-series-schedule/v0",
+  "spec_hash": "175c882abc42ccdd7b5ed488cdcac789130fdb09a93a2f7199d1863d5e084682"
+}

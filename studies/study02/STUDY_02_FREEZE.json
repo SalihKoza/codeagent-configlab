@@ -1,0 +1,29 @@
+{
+  "document_type": "Study-02 freeze manifest (descriptive summary; snapshot.json is the authoritative hash-bearing artifact)",
+  "status": "FROZEN",
+  "study_id": "study02",
+  "frozen_at_gate": "STUDY-02 GATE 7I",
+  "note": "No Study-02 production candidate execution occurred before this freeze.",
+  "production_attempt_count": 0,
+  "harness_git_sha": "1f576bf245411b00cd7856ac835bd651fcd281d8",
+  "study02_implementation_git_sha": "bbf8bba2ee7ffdefaca392f5c50a7d4ae585590e",
+  "historical_identities_unchanged": {
+    "study01_harness_git_sha": "c9e2e32c030d129e9cef53dca5c7e3b539c675f6",
+    "two_arm_support_git_sha": "d263dc32904c171c5da74e8ed1cf084c7a705bfa"
+  },
+  "task_count": 12,
+  "repository_family_count": 6,
+  "configurations": ["C1", "C2"],
+  "repetitions": 2,
+  "planned_cells": 48,
+  "spec_hash": "175c882abc42ccdd7b5ed488cdcac789130fdb09a93a2f7199d1863d5e084682",
+  "schedule_hash": "6a1f256f5fbb4502a50cbb20b6db61751144e263f45bb51294953056555c86d5",
+  "canonical_task_treatment_mapping_hash": "61fa81d034bf5a65d9f88e524cb15355ec4da6249ae386886666f08e69b2ca0a",
+  "order_projection_hash": "bb8df6cfb8e23c120306f1158e7d8423f319e2ee4cfd8e0d74cbac7633c7c7bb",
+  "block_seeds": [576357269, 2046211524],
+  "study_snapshot_hash": "3d7f238963577fb3f99ea675e6e70c2a0611ac29d5c7d36af4a9deface5a0a37",
+  "study_snapshot_hash_ref": "snapshot.json",
+  "study_freeze_commit": "recorded only outside this content, after the freeze commit is created -- not this field",
+  "production_prohibition": "Freeze completion means production may be scheduled/executed under the frozen protocol in a separate, operator-controlled execution gate. It does not mean production has started.",
+  "study03_firewall": "Study-03 (C3) remains conditional, not defined, not implied by this freeze."
+}

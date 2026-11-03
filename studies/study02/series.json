@@ -1,0 +1,41 @@
+{
+  "pilot_version": "study02-v1",
+  "namespace": "FINAL",
+  "package_dirs": [
+    "../../fixtures/study02/S2-PY-BUG-01",
+    "../../fixtures/study02/S2-PY-BUG-02",
+    "../../fixtures/study02/S2-PY-FEAT-01",
+    "../../fixtures/study02/S2-PY-FEAT-02",
+    "../../fixtures/study02/S2-PY-REF-01",
+    "../../fixtures/study02/S2-PY-REF-02",
+    "../../fixtures/study02/S2-TS-BUG-01",
+    "../../fixtures/study02/S2-TS-BUG-02",
+    "../../fixtures/study02/S2-TS-FEAT-01",
+    "../../fixtures/study02/S2-TS-FEAT-02",
+    "../../fixtures/study02/S2-TS-REF-01",
+    "../../fixtures/study02/S2-TS-REF-02"
+  ],
+  "model_request": "claude-sonnet-5",
+  "effort_request": "high",
+  "timeout_seconds": 900,
+  "configurations": ["C1", "C2"],
+  "claude_md_map": {
+    "S2-PY-BUG-01": "../../treatments/study02-v1/claude_md_S2-PY-A.md",
+    "S2-PY-REF-02": "../../treatments/study02-v1/claude_md_S2-PY-A.md",
+    "S2-PY-BUG-02": "../../treatments/study02-v1/claude_md_S2-PY-B.md",
+    "S2-PY-FEAT-01": "../../treatments/study02-v1/claude_md_S2-PY-B.md",
+    "S2-PY-FEAT-02": "../../treatments/study02-v1/claude_md_S2-PY-C.md",
+    "S2-PY-REF-01": "../../treatments/study02-v1/claude_md_S2-PY-C.md",
+    "S2-TS-BUG-01": "../../treatments/study02-v1/claude_md_S2-TS-A.md",
+    "S2-TS-REF-02": "../../treatments/study02-v1/claude_md_S2-TS-A.md",
+    "S2-TS-BUG-02": "../../treatments/study02-v1/claude_md_S2-TS-B.md",
+    "S2-TS-FEAT-01": "../../treatments/study02-v1/claude_md_S2-TS-B.md",
+    "S2-TS-FEAT-02": "../../treatments/study02-v1/claude_md_S2-TS-C.md",
+    "S2-TS-REF-01": "../../treatments/study02-v1/claude_md_S2-TS-C.md"
+  },
+  "planning_wrapper_file": "../../treatments/study02-v1/planning_wrapper.txt",
+  "approval_message_file": "../../treatments/study02-v1/approval_message.txt",
+  "order_seed_text": "configlab-study02-v1-order",
+  "repetitions": 2,
+  "max_replacements_per_cell": 1
+}

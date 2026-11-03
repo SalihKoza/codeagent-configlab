@@ -1,0 +1,13 @@
+task_id,repository_family,language,task_category,treatment_path,treatment_hash,mapping_valid
+S2-PY-BUG-01,throttlekit,python,bugfix,treatments/study02-v1/claude_md_S2-PY-A.md,f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70,true
+S2-PY-REF-02,throttlekit,python,refactor,treatments/study02-v1/claude_md_S2-PY-A.md,f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70,true
+S2-PY-BUG-02,stocktrack,python,bugfix,treatments/study02-v1/claude_md_S2-PY-B.md,ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617,true
+S2-PY-FEAT-01,stocktrack,python,feature,treatments/study02-v1/claude_md_S2-PY-B.md,ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617,true
+S2-PY-FEAT-02,configmerge,python,feature,treatments/study02-v1/claude_md_S2-PY-C.md,1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c,true
+S2-PY-REF-01,configmerge,python,refactor,treatments/study02-v1/claude_md_S2-PY-C.md,1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c,true
+S2-TS-BUG-01,dedupe-cache,typescript,bugfix,treatments/study02-v1/claude_md_S2-TS-A.md,647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74,true
+S2-TS-REF-02,dedupe-cache,typescript,refactor,treatments/study02-v1/claude_md_S2-TS-A.md,647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74,true
+S2-TS-BUG-02,qs-normalize,typescript,bugfix,treatments/study02-v1/claude_md_S2-TS-B.md,6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f,true
+S2-TS-FEAT-01,qs-normalize,typescript,feature,treatments/study02-v1/claude_md_S2-TS-B.md,6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f,true
+S2-TS-FEAT-02,mini-queue,typescript,feature,treatments/study02-v1/claude_md_S2-TS-C.md,d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328,true
+S2-TS-REF-01,mini-queue,typescript,refactor,treatments/study02-v1/claude_md_S2-TS-C.md,d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328,true

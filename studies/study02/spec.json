@@ -1,0 +1,250 @@
+{
+  "configurations": [
+    "C1",
+    "C2"
+  ],
+  "effort_request": "high",
+  "envelope": {
+    "implementation_envelope_hash": "911ea1a5c9708349d9bc9022d1d5435c3fad0e124c5958f90d2feea08d859743",
+    "planning_envelope_hash": "3dc389cb14170a85722d81230b0999e46b0e26f3a42771ea4f3b61f7875a6e6f",
+    "security_policy_hash": "6178b3c4c5bfaef24547bbffcf698bee9e0c545dfb0f6c58805ffeb8f4d3ff30"
+  },
+  "model_request": "claude-sonnet-5",
+  "namespace": "FINAL",
+  "order_seed_text": "configlab-study02-v1-order",
+  "pilot_version": "study02-v1",
+  "repetitions": 2,
+  "replacement_policy": {
+    "eligible_external_interruption": true,
+    "eligible_run_validity": [
+      "invalid:infrastructure",
+      "invalid:harness",
+      "preflight_failed"
+    ],
+    "halt_run_validity": [
+      "invalid:leak",
+      "invalid:carryover"
+    ],
+    "max_replacements_per_cell": 1,
+    "operator_approval_required": true,
+    "operator_confirm_run_validity": [
+      "invalid:fixture"
+    ]
+  },
+  "schema": "pilot-series-spec/v0",
+  "spec_hash": "175c882abc42ccdd7b5ed488cdcac789130fdb09a93a2f7199d1863d5e084682",
+  "tasks": [
+    {
+      "evaluator_identity": "dd0308add02486de22900d9610dc4f8153a96345e840d4d497b64a87552a1ba2",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "15baef1e9eb3c5ef52fb4dc110736bf238e836631b788b36a54281cebb44c6d6",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "6b723c98f94c60f589c545d3c49dd814189996e61043801e74ef2287c8358a38",
+      "task_category": "bugfix",
+      "task_id": "S2-PY-BUG-01",
+      "task_version_hash": "15baef1e9eb3c5ef52fb4dc110736bf238e836631b788b36a54281cebb44c6d6"
+    },
+    {
+      "evaluator_identity": "8297d6df4a1e2fc28e40175f66b9fdd47f0af1de9b01a67764d98d5dd7f8c6a9",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "cbf7f322d41aad8d788356e1d431192b47f45ea484f5481e3853e0ccfeb06008",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "95a4aecd632988887916eca65c113916dc5d68a0424d10910b6ec6fba95b2590",
+      "task_category": "bugfix",
+      "task_id": "S2-PY-BUG-02",
+      "task_version_hash": "cbf7f322d41aad8d788356e1d431192b47f45ea484f5481e3853e0ccfeb06008"
+    },
+    {
+      "evaluator_identity": "deff4bd7a91f142e5442b2b59609032d329cd420da173fdf99d581f3c2ec69bb",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "e10701feb35587f89a4d65e8928cc02a19c0e1abf4ef92d59cfd58c80335fbb5",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "9b16f1be6aecdcf2a58f8f2284334af709dd730161bfed6e92e9d432d2284a04",
+      "task_category": "feature",
+      "task_id": "S2-PY-FEAT-01",
+      "task_version_hash": "e10701feb35587f89a4d65e8928cc02a19c0e1abf4ef92d59cfd58c80335fbb5"
+    },
+    {
+      "evaluator_identity": "b83cf708262a0f3b362c38e1c94c9a1105825ce73fa510c00a0db87abb348d1d",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "afd8da158c5e7e895c25a8b2c3a5be4fdf3cc732f1ee940fb27cd43221cb070d",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "ec7e6335f421d96368b51e049d5f579cafb100d8fbe2f65ed4a650a64f859ad4",
+      "task_category": "feature",
+      "task_id": "S2-PY-FEAT-02",
+      "task_version_hash": "afd8da158c5e7e895c25a8b2c3a5be4fdf3cc732f1ee940fb27cd43221cb070d"
+    },
+    {
+      "evaluator_identity": "5cb281c756fcb9115787743a3d2b6aab06ede65452325e29f16df8370192ac3e",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "7e132695f148bb6434ed2cedddd7c1781bfcddc745957d0857d679c97e198df2",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "9ca62fd6c9717c0a1ab361c421ca5f8f0b264d7a551893ef5858382b07c4d089",
+      "task_category": "refactor",
+      "task_id": "S2-PY-REF-01",
+      "task_version_hash": "7e132695f148bb6434ed2cedddd7c1781bfcddc745957d0857d679c97e198df2"
+    },
+    {
+      "evaluator_identity": "4407eeaf13399ea0e37176a970af21f387a748554b25e354b0dba58010a9e2cd",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "bcab4ddfe4c4f35a139deeda040cf79f4936e85083846a183dbef9a885fd3bb8",
+      "generated_outputs": [],
+      "language": "python",
+      "statement_hash": "70b84494f70f7193259ff375338b7c4e3da38696eeeb13deb2b00cf515c8f0c6",
+      "task_category": "refactor",
+      "task_id": "S2-PY-REF-02",
+      "task_version_hash": "bcab4ddfe4c4f35a139deeda040cf79f4936e85083846a183dbef9a885fd3bb8"
+    },
+    {
+      "evaluator_identity": "ff6b6cb84388945fd1f88959b55321f1e0998db90aed9fd0986ec96644f4fdae",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "efb3c9eb4edec601aa525e692c81c0eb21ac03fec9b4d9fbe043fbacfd8ed28a",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "9ef28c8068edbb69c36a757c5d74a3ae85b7a35a43a1b89d3ec1a618d2b86401",
+      "task_category": "bugfix",
+      "task_id": "S2-TS-BUG-01",
+      "task_version_hash": "efb3c9eb4edec601aa525e692c81c0eb21ac03fec9b4d9fbe043fbacfd8ed28a"
+    },
+    {
+      "evaluator_identity": "be077a3f906f140fb5821264bb700556d1e958bb6e356fb03d96ce0b7840b318",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "687444e98f23bd448706562f889bfbf7855b7867f7fb68b04230a0e060bf09b0",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "b353069ba6ddf062426cbe94ce5770331b0754f3f0c2f789a173e864d6e97593",
+      "task_category": "bugfix",
+      "task_id": "S2-TS-BUG-02",
+      "task_version_hash": "687444e98f23bd448706562f889bfbf7855b7867f7fb68b04230a0e060bf09b0"
+    },
+    {
+      "evaluator_identity": "7f062690986333a6f2802b5eed3682ec2a60f27fab37e1260c9c6d580c36d779",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "e3d09291908ccecf5a0f19e07d04da5bc076869ff6cbfca129865bd45136f0e2",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "8cf2514c32492af7f2ed394c4ae6cd817b8e7b27518723de529729e86d2472a7",
+      "task_category": "feature",
+      "task_id": "S2-TS-FEAT-01",
+      "task_version_hash": "e3d09291908ccecf5a0f19e07d04da5bc076869ff6cbfca129865bd45136f0e2"
+    },
+    {
+      "evaluator_identity": "d924b892d00f5da54c8b3e9eb3c33174474066348b3f0037fd7f4c061b13859d",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "da7452da78b7cced58549dd1547d85eb16f1ea4820bf90631b3489dc5e3c0dcd",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "f3bb281068956eb849c97dad5d362d04c5d4dee2c90b7c67a1cdf52436b23a2a",
+      "task_category": "feature",
+      "task_id": "S2-TS-FEAT-02",
+      "task_version_hash": "da7452da78b7cced58549dd1547d85eb16f1ea4820bf90631b3489dc5e3c0dcd"
+    },
+    {
+      "evaluator_identity": "aa6a898743e7031ffb18dcaa40a45d808bba891a20225b3cbaec252e16b12f91",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "cb50fc71a6a6ffc34c4154167a17d0d93b4b559030896823a63deed607860f02",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "28eb747aa918141afe4b456027c29cad659e28886c5f940d275bbd3d33503557",
+      "task_category": "refactor",
+      "task_id": "S2-TS-REF-01",
+      "task_version_hash": "cb50fc71a6a6ffc34c4154167a17d0d93b4b559030896823a63deed607860f02"
+    },
+    {
+      "evaluator_identity": "9b187368afc6d29fea25e02635edd5955c67c38c790de5102e4f25f3634d188d",
+      "gate_status": "PASS",
+      "gate_task_version_hash": "dfd38e8822407c065b89512ef464f3e65dbd898ae56d43744bde5b2bc0ff8655",
+      "generated_outputs": [
+        "dist/**",
+        "*.tsbuildinfo"
+      ],
+      "language": "typescript",
+      "statement_hash": "e07274ac13471730f2f0dff37310633a5a5d634316b896050a26343ff89fbbb0",
+      "task_category": "refactor",
+      "task_id": "S2-TS-REF-02",
+      "task_version_hash": "dfd38e8822407c065b89512ef464f3e65dbd898ae56d43744bde5b2bc0ff8655"
+    }
+  ],
+  "timeout_seconds": 900,
+  "toolchain": {
+    "claude_code": "2.1.263",
+    "node": "22.23.2",
+    "npm": "10.9.8",
+    "sandbox_runtime": "0.0.77"
+  },
+  "treatment": {
+    "approval_message_hash": "dbf445a514ca2ae9576935d09d7add9cf9157f88ca01ae1388d65a1f1009ee14",
+    "claude_md_hash": null,
+    "claude_md_routing": [
+      {
+        "claude_md_hash": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70",
+        "task_id": "S2-PY-BUG-01"
+      },
+      {
+        "claude_md_hash": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617",
+        "task_id": "S2-PY-BUG-02"
+      },
+      {
+        "claude_md_hash": "ba360483b408a0b1667b978871a88c4c0eef670a9f2c6dc43476ae7214622617",
+        "task_id": "S2-PY-FEAT-01"
+      },
+      {
+        "claude_md_hash": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c",
+        "task_id": "S2-PY-FEAT-02"
+      },
+      {
+        "claude_md_hash": "1881dfdf8bd4cc2c1617ea468b9339a6551447ec85ba80ba9fd3568edd17082c",
+        "task_id": "S2-PY-REF-01"
+      },
+      {
+        "claude_md_hash": "f413841fc3e06f762921403112d6847af096510b5dbb07f3d2247b2f4fca4c70",
+        "task_id": "S2-PY-REF-02"
+      },
+      {
+        "claude_md_hash": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74",
+        "task_id": "S2-TS-BUG-01"
+      },
+      {
+        "claude_md_hash": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f",
+        "task_id": "S2-TS-BUG-02"
+      },
+      {
+        "claude_md_hash": "6a75b748085da019b0b1a982cc9049470c2502b75f8249a1bd0cc0cdbb9c171f",
+        "task_id": "S2-TS-FEAT-01"
+      },
+      {
+        "claude_md_hash": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328",
+        "task_id": "S2-TS-FEAT-02"
+      },
+      {
+        "claude_md_hash": "d3e296c881c9630d2e2e34a77d1d49b895f6aed781eb0d158233520ee702b328",
+        "task_id": "S2-TS-REF-01"
+      },
+      {
+        "claude_md_hash": "647c2319ba852bf6532b853e7defe313172174d9fbccda5474db520cc69acd74",
+        "task_id": "S2-TS-REF-02"
+      }
+    ],
+    "planning_wrapper_hash": "299b08446b440345a7f177258208c3bf8b1d33addc3934ed1356bb72a0c47fc4"
+  }
+}
