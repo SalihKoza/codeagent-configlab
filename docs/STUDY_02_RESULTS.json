@@ -1,0 +1,147 @@
+{
+  "study_id": "study02-v1",
+  "status": "PUBLISHED",
+  "provenance": {
+    "frozen_repo_head": "7ffed8d5ccd663578e543a606bded083b4d701b1",
+    "harness_git_sha": "1f576bf245411b00cd7856ac835bd651fcd281d8",
+    "study02_implementation_git_sha": "bbf8bba2ee7ffdefaca392f5c50a7d4ae585590e",
+    "study_snapshot_hash": "3d7f238963577fb3f99ea675e6e70c2a0611ac29d5c7d36af4a9deface5a0a37",
+    "spec_hash": "175c882abc42ccdd7b5ed488cdcac789130fdb09a93a2f7199d1863d5e084682",
+    "schedule_hash": "6a1f256f5fbb4502a50cbb20b6db61751144e263f45bb51294953056555c86d5",
+    "treatment_mapping_hash": "61fa81d034bf5a65d9f88e524cb15355ec4da6249ae386886666f08e69b2ca0a",
+    "order_projection_hash": "bb8df6cfb8e23c120306f1158e7d8423f319e2ee4cfd8e0d74cbac7633c7c7bb",
+    "selected_observations_hash": "aa1488c8956706dab8305a56d13e4fa7c7b4187e14d23cc714cc3511bdba4887",
+    "attempt_lineage_hash": "f2ab467111f1ccd473381541b2158aae967309546f05c31d6cdb0634d9ae3a17",
+    "protocol": "studies/study02/STUDY_02_PROTOCOL.md",
+    "analysis_plan": "studies/study02/STUDY_02_ANALYSIS_PLAN.md",
+    "execution_policy": "studies/study02/STUDY_02_EXECUTION_POLICY.md",
+    "public_data_tables": "docs/study02_data/",
+    "note": "Full per-attempt operational data (raw transcripts, sandbox/process logs, internal attempt IDs) is retained privately; aggregate reproducibility tables are published under docs/study02_data/.",
+    "requested_model": "claude-sonnet-5",
+    "requested_effort": "high"
+  },
+  "dataset": {
+    "planned_cells": 48,
+    "total_attempts": 49,
+    "original_attempts": 48,
+    "replacement_attempts": 1,
+    "replacement_cell_id": "cell-085ee0bd71c48859",
+    "replacement_task_id": "S2-TS-BUG-01",
+    "replacement_configuration": "C2",
+    "replacement_repetition": 2,
+    "replacement_reason": "original attempt's phase 2 was externally interrupted by a Claude subscription usage-limit (valid, not_countable:external_interruption) -- frozen-policy-eligible, operator-approved, outcome-quality-independent",
+    "cells_per_configuration": {"C1": 24, "C2": 24},
+    "n_tasks": 12,
+    "n_repository_families": 6,
+    "repetitions_per_task_config": 2
+  },
+  "marginal_success": {
+    "C1": {"resolved": 12, "total": 24, "rate_pct": 50.0},
+    "C2": {"resolved": 13, "total": 24, "rate_pct": 54.17}
+  },
+  "overall_outcome_accounting": {
+    "resolved": 25,
+    "unresolved": 23,
+    "acceptance_fail": 0,
+    "regression_fail": 0,
+    "integrity_non_clean": 23,
+    "evaluator_error": 0
+  },
+  "primary_C2_minus_C1": {
+    "matched_pairs": 24,
+    "transition_table": {
+      "both_resolved": 12,
+      "treatment_only_resolved": 1,
+      "comparator_only_resolved": 0,
+      "both_unresolved": 11
+    },
+    "cell_level_diff": 1,
+    "cell_level_pp_difference": 4.17,
+    "task_level": {
+      "improved": 1, "tied": 11, "worsened": 0,
+      "median_difference": 0, "mean_difference": 0.083
+    },
+    "only_task_level_difference_on": "S2-PY-BUG-02",
+    "timing": {
+      "n_matched_pairs_treatment_slower": 24,
+      "n_matched_pairs_total": 24,
+      "all_12_task_level_medians_slower": true,
+      "median_paired_diff_seconds": 32.95,
+      "median_ratio_treatment_over_comparator": 1.996
+    },
+    "interpretation_label": "non-replication",
+    "interpretation_statement": "The Study-01 C1-to-C2 reduction in the frozen composite resolved endpoint did not recur on the Study-02 task set."
+  },
+  "timing_by_configuration_all_countable_observations": {
+    "C1": {"n": 24, "min": 14.61, "median": 36.73, "mean": 38.91, "max": 97.65},
+    "C2": {"n": 24, "min": 37.89, "median": 63.75, "mean": 75.03, "max": 151.75}
+  },
+  "c2_phase_timing": {
+    "planning_phase_seconds": {"min": 17.75, "median": 37.14, "mean": 43.71, "max": 94.59},
+    "implementation_phase_seconds": {"min": 9.58, "median": 22.28, "mean": 31.31, "max": 83.21},
+    "median_planning_share_of_total": 0.606
+  },
+  "timing_interpretation_label": "directional_robustness_support",
+  "timing_interpretation_statement": "The explicit two-phase workflow produced a consistent candidate-time cost across both studies.",
+  "failure_axes": {
+    "integrity_non_clean_by_configuration": {"C1": 12, "C2": 11},
+    "acceptance_failures_by_configuration": {"C1": 0, "C2": 0},
+    "regression_failures_by_configuration": {"C1": 0, "C2": 0},
+    "integrity_category_observed": "protected_path_modified",
+    "out_of_tree_write_detected_count": 0
+  },
+  "functional_pass_secondary": {
+    "status": "preregistered_secondary_endpoint_not_a_replacement_primary_endpoint",
+    "definition": "valid AND countable AND acceptance==pass AND regression==pass, integrity reported separately rather than used as an exclusion criterion",
+    "by_configuration": {
+      "C1": {"n": 24, "functional_pass": 24, "functional_fail": 0, "integrity_clean": 12, "integrity_nonclean": 12, "resolved": 12},
+      "C2": {"n": 24, "functional_pass": 24, "functional_fail": 0, "integrity_clean": 13, "integrity_nonclean": 11, "resolved": 13}
+    },
+    "interpretation_statement": "No C1/C2 difference was observed in acceptance/regression-defined functional completion; the entire primary resolved difference between configurations traces to the integrity axis, not to functional failure.",
+    "integrity_disclosure_note": "Unlike Study-01 (where the relevant protected-path restriction was not candidate-visible), Study-02's protected-path criterion was prospectively candidate-visible and validated before execution. These integrity failures therefore remain legitimate primary-endpoint failures under the frozen protocol, not a disclosure-gap artifact."
+  },
+  "exploratory_language_family_structure": {
+    "label": "EXPLORATORY_DESIGN_LIMITATION",
+    "typescript": {"n": 24, "resolved": 24},
+    "python": {"n": 24, "resolved": 1},
+    "structurally_confounded_with": "repository_family",
+    "interpretation_statement": "Resolution outcomes were highly concentrated by language/repository-family structure, creating a strong floor/ceiling limitation for interpreting broad treatment effects. Language and repository family are structurally confounded in this design and this pattern is not attributed causally to programming language.",
+    "preregistration_status": "exploratory_not_preregistered"
+  },
+  "study01_comparison": {
+    "pooled": false,
+    "combined_effect_computed": false,
+    "study01_primary_C2_minus_C1": {"c1_resolved": 16, "c1_total": 18, "c2_resolved": 12, "c2_total": 18, "diff_pp": -22.2},
+    "study02_primary_C2_minus_C1": {"c1_resolved": 12, "c1_total": 24, "c2_resolved": 13, "c2_total": 24, "diff_pp": 4.17},
+    "study01_timing_median_ratio": 1.527,
+    "study02_timing_median_ratio": 1.996,
+    "functional_pass_methodology_note": "Study-01's functional-pass breakdown was a post-hoc sensitivity analysis; Study-02's was a prospectively preregistered secondary endpoint -- the two are not methodologically identical and are not presented as such.",
+    "integrity_visibility_note": "Study-01's relevant protected-path restriction was not candidate-visible; Study-02's was prospectively candidate-visible and validated. A shared integrity category label (protected_path_modified) does not imply a replicated mechanism across the two studies."
+  },
+  "study03_recommendation": {
+    "decision": "NO_STUDY03_INTERVENTION_YET",
+    "statement": "More robustness evidence needed first -- no Study-03 indicated by this dataset alone.",
+    "reasoning": [
+      "Study-01's primary quality-degradation effect did not reproduce in Study-02.",
+      "Functional (acceptance/regression) degradation was absent in Study-02 (24/24 both configurations).",
+      "The timing overhead reproduced strongly but is not currently paired with a reproduced quality cost.",
+      "The integrity-failure pattern is reproducible as a rate but is overwhelmingly associated with language/repository-family structure rather than the C1/C2 contrast -- artifactual with respect to the treatment, not treatment-associated."
+    ],
+    "preregistered_standard": "reproducible AND treatment-associated AND actionable AND non-artifactual (STUDY_02_PROTOCOL.md Sec.10)"
+  },
+  "limitations": {
+    "n_task_units": 12,
+    "repetitions_characterize": "within-task run variability, not independent samples",
+    "n_repository_families": 6,
+    "tasks_per_family": 2,
+    "synthetic_tasks": true,
+    "languages_represented": ["python", "typescript"],
+    "severe_floor_ceiling_structure_between_languages": true,
+    "single_model_version_environment": true,
+    "no_inferential_testing_performed": true,
+    "generalization_claim_supported": false,
+    "integrity_disclosure_gap": false,
+    "note": "Unlike Study-01, Study-02's integrity criterion was candidate-visible -- the limitation here is the language/family floor-ceiling structure, not a disclosure gap."
+  },
+  "inference_scope": "descriptive_task_aware"
+}

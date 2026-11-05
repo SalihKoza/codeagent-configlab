@@ -1,0 +1,13 @@
+task_id,repository_family,language,task_type,c1_resolved_of_2,c2_resolved_of_2,difference_c2_minus_c1,c1_integrity_clean_of_2,c2_integrity_clean_of_2
+S2-PY-BUG-01,throttlekit,python,bugfix,0,0,0,0,0
+S2-PY-BUG-02,stocktrack,python,bugfix,0,1,1,0,1
+S2-PY-FEAT-01,stocktrack,python,feature,0,0,0,0,0
+S2-PY-FEAT-02,configmerge,python,feature,0,0,0,0,0
+S2-PY-REF-01,configmerge,python,refactor,0,0,0,0,0
+S2-PY-REF-02,throttlekit,python,refactor,0,0,0,0,0
+S2-TS-BUG-01,dedupe-cache,typescript,bugfix,2,2,0,2,2
+S2-TS-BUG-02,qs-normalize,typescript,bugfix,2,2,0,2,2
+S2-TS-FEAT-01,qs-normalize,typescript,feature,2,2,0,2,2
+S2-TS-FEAT-02,mini-queue,typescript,feature,2,2,0,2,2
+S2-TS-REF-01,mini-queue,typescript,refactor,2,2,0,2,2
+S2-TS-REF-02,dedupe-cache,typescript,refactor,2,2,0,2,2

@@ -1,0 +1,12 @@
+stratum_type,stratum_key,n_tasks,n_observations,c1_resolved,c1_n,c2_resolved,c2_n,functional_pass_count,integrity_clean,integrity_fail,median_total_seconds
+language,python,6,24,0,12,1,12,24,1,23,37.958438
+language,typescript,6,24,12,12,12,12,24,24,0,60.88747
+task_type,bugfix,4,16,4,8,5,8,16,9,7,45.542183
+task_type,feature,4,16,4,8,4,8,16,8,8,45.820787
+task_type,refactor,4,16,4,8,4,8,16,8,8,52.327825
+repository_family,configmerge,2,8,0,4,0,4,8,0,8,39.260637
+repository_family,dedupe-cache,2,8,4,4,4,4,8,8,0,48.5829
+repository_family,mini-queue,2,8,4,4,4,4,8,8,0,109.861028
+repository_family,qs-normalize,2,8,4,4,4,4,8,8,0,70.820968
+repository_family,stocktrack,2,8,0,4,1,4,8,1,7,38.017202
+repository_family,throttlekit,2,8,0,4,0,4,8,0,8,32.600701

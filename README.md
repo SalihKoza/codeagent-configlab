@@ -69,12 +69,38 @@ samples. Tasks are synthetic, one per language × task-type combination, run und
 model/harness/environment. No significance testing was performed or is implied by these numbers.
 Future studies can test task-set robustness and criterion-visibility fixes on new tasks.
 
+## Study-02 Results
+
+Study-02 is a 12-task, six-repository-family robustness replication of Study-01's RQ2 (C2 vs. C1),
+testing a new task set rather than repeating the original six tasks. Full report:
+`docs/study02/STUDY_02_RESULTS.md`. Machine-readable results: `docs/STUDY_02_RESULTS.json`. Public
+data tables: `docs/study02_data/`. Protocol: `studies/study02/STUDY_02_PROTOCOL.md`. Of the 48
+planned cells, one original attempt was externally interrupted by a Claude subscription usage
+limit (not a task outcome) and was re-run once under the frozen replacement policy — the study
+remains 48 planned cells, not 49.
+
+| Comparison | Matched success change (frozen primary result) | Timing |
+|---|---|---|
+| C2 vs. C1 | 12/24 → 13/24 resolved, +4.17 pp | C2 slower in 24/24 matched pairs; all 12 task-level medians slower |
+
+**Study-01's C2 quality-degradation finding (−22.2 pp) did not recur on this new task set** — the
+entire +1-cell difference traces to a single task. Both configurations achieved 100% functional
+(acceptance/regression) completion; the lower composite `resolved` rate in both arms traced
+entirely to a candidate-visible integrity (protected-path) criterion, not functional failure. The
+explicit workflow's candidate-time cost **did** reproduce, more strongly than in Study-01 (24/24
+matched pairs slower, ≈2.0× median ratio vs. Study-01's ≈1.53×). A severe floor/ceiling structure
+between the two languages in this task set (TypeScript near-ceiling, Python near-floor on the
+composite endpoint) limits how much this design can say about a broader quality contrast — see
+`docs/study02/STUDY_02_RESULTS.md` §13/§16 for the full discussion. No Study-03 intervention study
+is indicated by this evidence alone.
+
 ## Where things stand
 
 The **final benchmark** (Study-01) — a separate, larger task set producing a 54-cell dataset with
 a comparative report across C0/C1/C2 — has been run and analyzed; see
 [Study-01 Results](#study-01-results) above. The two pilot tasks were instruments only and are not
-part of that final set.
+part of that final set. **Study-02** — a 12-task, six-repository-family robustness replication of
+Study-01's RQ2 — is also now complete; see [Study-02 Results](#study-02-results) above.
 
 - `docs/V1_STATUS.md` — what the harness currently provides, and what it doesn't yet contain.
 - `docs/PILOT_V1_CLOSEOUT.md` — the pilot's scope, frozen execution identities, full execution
